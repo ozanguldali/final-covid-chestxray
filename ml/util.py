@@ -1,59 +1,71 @@
 from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import LinearSVC
+from sklearn.svm import LinearSVC, SVC
 
 from ml.helper import get_prediction_kf, get_best_lambda
 
 from util.logger_util import log
 
 
-def run_svm(X, y, seed, kf, lambdas):
-    cv = kf.n_splits
-    tag = "Acc/SVM"
+def run_svm(X, y, seed, penalty, kf=None, lambdas=None):
+    if penalty is None:
+        run_svm(X=X, y=y, seed=seed, penalty=False, kf=kf)
+        run_svm(X=X, y=y, seed=seed, penalty=True, kf=kf, lambdas=lambdas)
 
-    grad_dict = {
-        'classifier': [LinearSVC()],
-        'classifier__penalty': ['l1'],
-        'classifier__C': lambdas,
-        'classifier__dual': [False],
-        'classifier__random_state': [seed],
-        'classifier__max_iter': [10000]
-    }
-    bests = get_best_lambda(LinearSVC(), grad_dict, cv, X, y)
-    best_lambda = lambdas[bests.best_index_]
+    else:
+        log.info("Penalty Enabled: " + str(penalty))
+        tag = "Acc/SVM" + ("/LASSO" if penalty else "")
 
-    log.info("Best lambda value has determined as: " + str(best_lambda))
-    svc_cv = LinearSVC(max_iter=100000, penalty='l1', dual=False, C=best_lambda)  # probability=True
+        if penalty:
+            cv = kf.n_splits
 
-    get_prediction_kf(kf=kf, model=svc_cv, X=X, y=y, tag=tag)
-    log.info("")
+            grad_dict = {
+                'classifier': [LinearSVC()],
+                'classifier__penalty': ['l1'],
+                'classifier__C': lambdas,
+                'classifier__dual': [False],
+                'classifier__random_state': [seed],
+                'classifier__max_iter': [10000]
+            }
+            bests = get_best_lambda(LinearSVC(), grad_dict, cv, X, y)
+            best_lambda = lambdas[bests.best_index_]
 
+            log.info("Best lambda value has determined as: " + str(best_lambda))
+            svc_cv = LinearSVC(max_iter=100000, penalty='l1', dual=False, C=best_lambda)  # probability=True
 
-def run_lr(X, y, seed, kf, lambdas):
-    cv = kf.n_splits
-    tag = "Acc/LR"
+        else:
+            svc_cv = SVC(max_iter=100000, probability=True)
 
-    grad_dict = {
-        'classifier': [LogisticRegression()],
-        'classifier__penalty': ['l1'],
-        'classifier__C': lambdas,
-        'classifier__solver': ["liblinear"],
-        'classifier__random_state': [seed],
-        'classifier__max_iter': [10000]
-    }
-    bests = get_best_lambda(LogisticRegression(), grad_dict, cv, X, y)
-    best_lambda = lambdas[bests.best_index_]
-    log.info("Best lambda value has determined as: " + str(best_lambda))
-    clf_cv = LogisticRegression(max_iter=100000, solver='liblinear', penalty='l1', C=best_lambda)
-
-    get_prediction_kf(kf, clf_cv, X, y, tag)
-    log.info("")
+        get_prediction_kf(kf=kf, model=svc_cv, X=X, y=y, tag=tag)
+        log.info("")
 
 
-def run_knn(X, y, seed, kf, lambdas):
-    tag = "Acc/KNN"
+def run_lr(X, y, seed, kf, penalty, lambdas):
+    if penalty is None:
+        run_svm(X=X, y=y, seed=seed, penalty=False, kf=kf)
+        run_svm(X=X, y=y, seed=seed, penalty=True, kf=kf, lambdas=lambdas)
 
-    neigh_cv = KNeighborsClassifier(n_neighbors=len(set(y)))
+    else:
+        log.info("Penalty Enabled: " + str(penalty))
+        tag = "Acc/SVM" + ("/LASSO" if penalty else "")
 
-    get_prediction_kf(kf, neigh_cv, X, y, tag)
-    log.info("")
+        if penalty:
+            cv = kf.n_splits
+
+            grad_dict = {
+                'classifier': [LogisticRegression()],
+                'classifier__penalty': ['l1'],
+                'classifier__C': lambdas,
+                'classifier__solver': ["liblinear"],
+                'classifier__random_state': [seed],
+                'classifier__max_iter': [100000]
+            }
+            bests = get_best_lambda(LogisticRegression(), grad_dict, cv, X, y)
+            best_lambda = lambdas[bests.best_index_]
+            log.info("Best lambda value has determined as: " + str(best_lambda))
+            clf_cv = LogisticRegression(max_iter=100000, solver='liblinear', penalty='l1', C=best_lambda)
+
+        else:
+            clf_cv = LogisticRegression(max_iter=100000, solver='liblinear')
+
+        get_prediction_kf(kf, clf_cv, X, y, tag)
+        log.info("")

@@ -17,7 +17,7 @@ from util.logger_util import log
 ROOT_DIR = str(os.path.dirname(os.path.abspath(__file__)))
 
 
-def main(transfer_learning, method="", ml_model_name="", cv=5, dataset_folder="dataset",
+def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="dataset", penalty=None,
          pretrain_file=None, batch_size=8, img_size=112, num_workers=4, cnn_model_name="", optimizer_name='Adam',
          validation_freq=0.1, lr=0.001, momentum=0.9, partial=0.125, betas=(0.9, 0.99), weight_decay=0.025,
          update_lr=True, is_pre_trained=False, fine_tune=False, num_epochs=16, normalize=True, lambdas=None, seed=1):
@@ -87,7 +87,7 @@ def main(transfer_learning, method="", ml_model_name="", cv=5, dataset_folder="d
 
         kf = KFold(n_splits=cv, shuffle=True, random_state=seed)
 
-        ml_model.run_model(model_name=ml_model_name, X=X_cnn, y=y, seed=seed, kf=kf, lambdas=lambdas)
+        ml_model.run_model(model_name=ml_model_name, X=X_cnn, y=y, seed=seed, kf=kf, penalty=penalty, lambdas=lambdas)
 
     collect_garbage()
 
