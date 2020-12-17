@@ -1,0 +1,9 @@
+scikit-learn
+scikit-image
+log4python
+numpy
+Pillow
+xlsxwriter
+# Image
+torch
+log4p~=2019.7.13.3
