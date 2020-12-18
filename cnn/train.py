@@ -25,7 +25,7 @@ def train_model(model, train_loader, test_loader, metric, optimizer, lr, validat
         total = len(train_loader.dataset)
         update = update_lr
         loss_history = []
-        for e, (images, labels) in enumerate(train_loader):  # tqdm
+        for e, (images, labels) in enumerate(tqdm(train_loader)):
             # zero the parameter gradients
             optimizer.zero_grad()
 

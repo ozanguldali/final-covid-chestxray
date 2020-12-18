@@ -62,6 +62,5 @@ def main(save=False, dataset_folder="dataset", batch_size=32, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="resnet18", is_pre_trained=False, pretrain_file="84.35_PreTrained_resnet18_Adam_dataset_out",
-         img_size=224, test_without_train=False)
+    main(model_name="resnet18", is_pre_trained=True)
     log.info("Process Finished")
