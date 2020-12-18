@@ -61,7 +61,7 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, train_loade
     model_parameters = get_grad_update_params(model, fine_tune)
 
     if optimizer_name == optim.Adam.__name__:
-        optimizer = optim.Adam(model_parameters, lr=lr)
+        optimizer = optim.Adam(model_parameters, lr=lr, weight_decay=weight_decay)
     elif optimizer_name == optim.SGD.__name__:
         optimizer = optim.SGD(model_parameters, lr=lr, momentum=momentum)
     elif optimizer_name == padam.Padam.__name__:
