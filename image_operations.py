@@ -38,8 +38,10 @@ def main(folder, augment_type):
 
 
 if __name__ == '__main__':
-    main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="horizontalFlip")
-    main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="verticalFlip")
-    main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="90Rotate")
-    main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="180Rotate")
-    main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="270Rotate")
+    # RUN JUST ONE TIME
+    pass
+    # main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="horizontalFlip")
+    # main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="verticalFlip")
+    # main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="90Rotate")
+    # main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="180Rotate")
+    # main(folder=ROOT_DIR + '/dataset/train/Viral-COVID19/', augment_type="270Rotate")

@@ -230,5 +230,6 @@ def construct_related_base_directory(data_dict, folder):
 
 
 if __name__ == '__main__':
-    construct_dataset(reset=True, create=True)
-    # dataset_investigate()
+    # RUN JUST ONE TIME
+    # construct_dataset(reset=False, create=False)
+    dataset_investigate()
