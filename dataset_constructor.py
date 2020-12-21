@@ -166,6 +166,32 @@ def construct_dataset(default_size=240, reset=False, create=False):
         construct_related_base_directory(test_normal, test_normal_folder)
 
 
+def split_main_dataset(reset=False, create=False):
+    viral_covid19_folder = SOURCE_DIR + "/viral_covid/"
+    viral_other_folder = SOURCE_DIR + "/viral_other/"
+    bacterial_folder = SOURCE_DIR + "/bacterial/"
+    normal_folder = SOURCE_DIR + "/normal/"
+
+    if reset:
+        prepare_directory(viral_covid19_folder)
+        prepare_directory(viral_other_folder)
+        prepare_directory(bacterial_folder)
+        prepare_directory(normal_folder)
+
+    lists = scrape_metadata()
+
+    viral_covid_dict = lists[0]
+    viral_other_dict = lists[1]
+    bacterial_dict = lists[2]
+    normal_dict = lists[3]
+
+    if create:
+        construct_related_base_directory(viral_covid_dict, viral_covid19_folder)
+        construct_related_base_directory(viral_other_dict, viral_other_folder)
+        construct_related_base_directory(bacterial_dict, bacterial_folder)
+        construct_related_base_directory(normal_dict, normal_folder)
+
+
 def elect_from_larger_dataset(small, large, dataset):
     elected = []
     rand = []
