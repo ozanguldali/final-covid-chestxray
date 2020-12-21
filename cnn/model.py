@@ -19,9 +19,8 @@ from util.garbage_util import collect_garbage
 from util.logger_util import log
 
 
-def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, train_loader, test_loader,
-              validation_freq, lr, momentum, weight_decay, update_lr=True, num_epochs=25, save=False,
-              dataset_folder="dataset"):
+def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs, train_loader, test_loader,
+              validation_freq, lr, momentum, weight_decay, update_lr=True, save=False, dataset_folder="dataset"):
     collect_garbage()
 
     MODEL_NAME[0] = model_name
@@ -71,7 +70,7 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, train_loade
 
     log.info("Setting the optimizer as: {}".format(optimizer_name))
 
-    SAVE_FILE[0] = ("" if not is_pre_trained else "PreTrained_") + model_name + "_" + optimizer_name + "_" + dataset_folder + "_out.pth"
+    SAVE_FILE[0] = ("" if not is_pre_trained else "PreTrained_") + model_name + "_" + optimizer_name + "_out.pth"
 
     last_val_iterator = train_model(model, train_loader, test_loader, metric, optimizer, lr=lr,
                                     num_epochs=num_epochs, update_lr=update_lr, validation_freq=validation_freq,
