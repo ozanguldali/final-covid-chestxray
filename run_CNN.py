@@ -12,8 +12,7 @@ from util.tensorboard_util import writer
 
 def main(save=False, dataset_folder="dataset", batch_size=32, img_size=224, test_without_train=False, pretrain_file=None,
          num_workers=4, model_name='alexnet', optimizer_name='Adam', is_pre_trained=False, fine_tune=False,
-         num_epochs=18, update_lr=True, normalize=None, validation_freq=0.1, lr=0.001, momentum=0.9, partial=0.125,
-         betas=(0.9, 0.99), weight_decay=0.025):
+         num_epochs=18, update_lr=True, normalize=None, validation_freq=0.1, lr=0.001, momentum=0.9, weight_decay=1e-4):
     if not is_pre_trained and fine_tune:
         fine_tune = False
 
@@ -53,7 +52,7 @@ def main(save=False, dataset_folder="dataset", batch_size=32, img_size=224, test
                   fine_tune=fine_tune, train_loader=train_loader, test_loader=test_loader,
                   num_epochs=num_epochs, save=save,
                   update_lr=update_lr, dataset_folder=dataset_folder, validation_freq=validation_freq, lr=lr,
-                  momentum=momentum, partial=partial, betas=betas, weight_decay=weight_decay)
+                  momentum=momentum, weight_decay=weight_decay)
 
     collect_garbage()
     writer.close()

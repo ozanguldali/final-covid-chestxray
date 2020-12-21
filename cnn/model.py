@@ -5,7 +5,6 @@ import torchvision.models as models
 import torch.optim as optim
 
 from cnn.helper import get_grad_update_params
-from optim import padam
 
 from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME
 from cnn.load import load_model
@@ -21,7 +20,7 @@ from util.logger_util import log
 
 
 def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, train_loader, test_loader,
-              validation_freq, lr, momentum, partial, betas, weight_decay, update_lr=True, num_epochs=25, save=False,
+              validation_freq, lr, momentum, weight_decay, update_lr=True, num_epochs=25, save=False,
               dataset_folder="dataset"):
     collect_garbage()
 
@@ -62,10 +61,10 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, train_loade
 
     if optimizer_name == optim.Adam.__name__:
         optimizer = optim.Adam(model_parameters, lr=lr, weight_decay=weight_decay)
+    elif optimizer_name == optim.AdamW.__name__:
+        optimizer = optim.AdamW(model_parameters, lr=lr, weight_decay=weight_decay)
     elif optimizer_name == optim.SGD.__name__:
         optimizer = optim.SGD(model_parameters, lr=lr, momentum=momentum)
-    elif optimizer_name == padam.Padam.__name__:
-        optimizer = padam.Padam(model_parameters, lr=lr, partial=partial, weight_decay=weight_decay, betas=betas)
     else:
         log.fatal("not implemented optimizer name: {}".format(optimizer_name))
         sys.exit(1)

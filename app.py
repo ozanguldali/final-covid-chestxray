@@ -19,7 +19,7 @@ ROOT_DIR = str(os.path.dirname(os.path.abspath(__file__)))
 
 def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="dataset", penalty=None,
          pretrain_file=None, batch_size=8, img_size=112, num_workers=4, cnn_model_name="", optimizer_name='Adam',
-         validation_freq=0.1, lr=0.001, momentum=0.9, partial=0.125, betas=(0.9, 0.99), weight_decay=0.025,
+         validation_freq=0.1, lr=0.001, momentum=0.9, weight_decay=1e-4,
          update_lr=True, is_pre_trained=False, fine_tune=False, num_epochs=16, normalize=True, lambdas=None, seed=1):
 
     if lambdas is None:
@@ -34,7 +34,7 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
                          img_size=img_size, num_workers=num_workers, num_epochs=num_epochs, model_name=cnn_model_name,
                          optimizer_name=optimizer_name, is_pre_trained=is_pre_trained, fine_tune=fine_tune,
                          update_lr=update_lr, normalize=normalize, validation_freq=validation_freq, lr=lr,
-                         momentum=momentum, partial=partial, betas=betas, weight_decay=weight_decay)
+                         momentum=momentum, weight_decay=weight_decay)
         else:
             log.fatal("method name is not known: " + method)
             sys.exit(1)
@@ -57,7 +57,7 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
             model = cnn_model.run_model(model_name=cnn_model_name, optimizer_name=optimizer_name, fine_tune=fine_tune,
                                         is_pre_trained=is_pre_trained, train_loader=train_loader, num_epochs=num_epochs,
                                         test_loader=test_loader, validation_freq=validation_freq, lr=lr,
-                                        momentum=momentum, partial=partial, betas=betas, weight_decay=weight_decay,
+                                        momentum=momentum, weight_decay=weight_decay,
                                         update_lr=update_lr, save=False, dataset_folder=dataset_folder)
 
         log.info("Feature extractor is being created")
