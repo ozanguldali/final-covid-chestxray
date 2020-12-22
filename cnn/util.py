@@ -95,19 +95,19 @@ def is_verified(acc):
 
     verified = False
 
-    if model_name == models.alexnet.__name__ and acc >= 86.0:
+    if model_name == models.alexnet.__name__ and acc > 86.82:
         verified = True
 
-    elif model_name == models.resnet18.__name__ and acc >= 82.32:
+    elif model_name == models.resnet18.__name__ and acc > 82.32:
         verified = True
 
-    elif model_name == models.vgg16.__name__ and acc >= 82.66:
+    elif model_name == models.vgg16.__name__ and acc > 82.66:
         verified = True
 
-    elif model_name == models.vgg19.__name__ and acc >= 81.3:
+    elif model_name == models.vgg19.__name__ and acc > 81.3:
         verified = True
 
-    elif model_name == models.densenet169.__name__ and acc >= 81.98:
+    elif model_name == models.densenet169.__name__ and acc > 81.98:
         verified = True
 
     return verified

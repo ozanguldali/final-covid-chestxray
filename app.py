@@ -22,13 +22,13 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
          validation_freq=0.1, lr=0.001, momentum=0.9, weight_decay=1e-4,
          update_lr=True, is_pre_trained=False, fine_tune=False, num_epochs=16, normalize=True, lambdas=None, seed=1):
 
-    if lambdas is None:
+    if (penalty is None or penalty) and lambdas is None:
         lambdas = [0.01, 0.05, 0.1, 0.5, 1.0, 5.0]
 
     if not transfer_learning:
         if method.lower() == "ml":
             run_ML.main(model_name=ml_model_name, dataset_folder=dataset_folder, seed=seed, cv=cv,
-                        img_size=img_size, normalize=normalize)
+                        img_size=img_size, normalize=normalize,  penalty=penalty, lambdas=lambdas)
         elif method.lower() == "cnn":
             run_CNN.main(save=False, dataset_folder=dataset_folder, batch_size=batch_size, test_without_train=False,
                          img_size=img_size, num_workers=num_workers, num_epochs=num_epochs, model_name=cnn_model_name,
@@ -76,8 +76,12 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
         class_dist = {i: y.count(i) for i in y}
         class0_size = class_dist[0]
         class1_size = class_dist[1]
+        class3_size = class_dist[2]
+        class4_size = class_dist[3]
         log.info("Total class 0 size: " + str(class0_size))
         log.info("Total class 1 size: " + str(class1_size))
+        log.info("Total class 3 size: " + str(class3_size))
+        log.info("Total class 4 size: " + str(class4_size))
 
         if normalize:
             X_cnn = Normalizer().fit_transform(X_cnn)
@@ -94,8 +98,8 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(transfer_learning=False, method="ml", ml_model_name="all", cnn_model_name="resnet18", is_pre_trained=True,
-         dataset_folder="dataset", pretrain_file="84.35_PreTrained_resnet18_Adam_dataset_out", img_size=112,
+    main(transfer_learning=True, ml_model_name="svm", cnn_model_name="alexnet", is_pre_trained=True,
+         dataset_folder="dataset", pretrain_file="86.82_PreTrained_alexnet_Adam_out", img_size=224,
          cv=10, seed=17)
 
     log.info("Process Finished")

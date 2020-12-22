@@ -33,7 +33,7 @@ def get_prediction_kf(kf, model, X, y, tag=None):
         ratios.append(success_ratio)
 
         test_prob = model.predict_proba(X_test)
-        auc = roc_auc_score(y_test, test_prob[:, 1])
+        auc = roc_auc_score(y_test, test_prob, multi_class="ovr")
         log.info(str(cv) + "-Fold CV -- Iteration " + str(e) + " AUC Score: " + str(auc))
         roc_list.append(auc)
 

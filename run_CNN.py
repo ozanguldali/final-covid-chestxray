@@ -65,3 +65,5 @@ if __name__ == '__main__':
     log.info("Process Started")
     main(model_name="resnet18", is_pre_trained=True)
     log.info("Process Finished")
+
+# alexnet - adam - lr=0.001 - update_lr - batch_size = 64 - epochs=70, acc = 86.82
