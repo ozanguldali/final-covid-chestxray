@@ -25,6 +25,13 @@ def train_model(model, train_loader, test_loader, metric, optimizer, lr, validat
         total = len(train_loader.dataset)
         update = update_lr
         loss_history = []
+
+        if epoch % validate_every == 0 and epoch != (num_epochs-1):
+            last_validate_iter = int(epoch / validate_every)
+            validate_model(model, test_loader, metric, last_validate_iter, save)
+            model = model.train()
+            metric = metric.train()
+
         for e, (images, labels) in enumerate(tqdm(train_loader)):
             # zero the parameter gradients
             optimizer.zero_grad()
@@ -66,12 +73,6 @@ def train_model(model, train_loader, test_loader, metric, optimizer, lr, validat
                  .format(epoch + 1,
                          round(epoch_loss, 4),
                          round(epoch_acc, 4)))
-
-        if epoch % validate_every == 0 and epoch != (num_epochs-1):
-            last_validate_iter = int(epoch / validate_every)
-            validate_model(model, test_loader, metric, last_validate_iter, save)
-            model = model.train()
-            metric = metric.train()
 
     log.info("\nTotal training iteration: %d" % len(total_loss_history))
     total_loss = sum(total_loss_history) / len(total_loss_history)

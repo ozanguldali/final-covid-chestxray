@@ -95,7 +95,7 @@ def is_verified(acc):
 
     verified = False
 
-    if model_name == models.alexnet.__name__ and acc >= 89.0:
+    if model_name == models.alexnet.__name__ and acc >= 86.0:
         verified = True
 
     elif model_name == models.resnet18.__name__ and acc >= 82.32:

@@ -24,6 +24,8 @@ def main(save=False, dataset_folder="dataset", batch_size=32, img_size=224, test
     train_data, train_loader, test_data, test_loader = set_dataset_and_loaders(dataset_folder, batch_size,
                                                                                img_size, num_workers, normalize)
 
+    log.info(test_loader.dataset.class_to_idx)
+
     set_0, set_1 = 0, 0
     for imgs, labels in test_loader:
         if set_0 == 3 and set_1 == 3:
