@@ -10,9 +10,9 @@ from util.logger_util import log
 from util.tensorboard_util import writer
 
 
-def main(save=False, dataset_folder="dataset", batch_size=32, img_size=224, test_without_train=False, pretrain_file=None,
+def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test_without_train=False, pretrain_file=None,
          num_workers=4, model_name='alexnet', optimizer_name='Adam', is_pre_trained=False, fine_tune=False,
-         num_epochs=18, update_lr=True, normalize=None, validation_freq=0.1, lr=0.001, momentum=0.9, weight_decay=1e-4):
+         num_epochs=200, update_lr=True, normalize=None, validation_freq=0.05, lr=0.001, momentum=0.9, weight_decay=1e-4):
     if not is_pre_trained and fine_tune:
         fine_tune = False
 
@@ -66,4 +66,18 @@ if __name__ == '__main__':
     main(model_name="resnet18", is_pre_trained=True)
     log.info("Process Finished")
 
-# alexnet - adam - lr=0.001 - update_lr - batch_size = 64 - epochs=70, acc = 86.82
+# alexnet - adam - lr=0.001 - update_lr=True - epochs=60 - acc = 82.64
+# alexnet - adamw - lr=0.001 - update_lr=True - epochs=170 - acc = 84.88
+# alexnet - sgd - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53
+
+# resnet18 - adam - lr=0.001 - update_lr=True - epochs= - acc =
+# resnet18 - adamw - lr=0.001 - update_lr=True - epochs= - acc =
+# resnet18 - sgd - lr=0.001 - update_lr=False - epochs= - acc =
+
+# resnet50 - adam - lr=0.001 - update_lr=True - epochs= - acc =
+# resnet50 - adamw - lr=0.001 - update_lr=True - epochs= - acc =
+# resnet50 - sgd - lr=0.001 - update_lr=False - epochs= - acc =
+
+# vgg16 - adam - lr=0.001 - update_lr=True - epochs= - acc =
+# vgg16 - adamw - lr=0.001 - update_lr=True - epochs= - acc =
+# vgg16 - sgd - lr=0.001 - update_lr=False - epochs= - acc =
