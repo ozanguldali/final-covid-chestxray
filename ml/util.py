@@ -24,7 +24,7 @@ def run_svm(X, y, seed, penalty, kf=None, lambdas=None):
                 'classifier__C': lambdas,
                 'classifier__dual': [False],
                 'classifier__random_state': [seed],
-                'classifier__max_iter': [10000]
+                'classifier__max_iter': [100000]
             }
             bests = get_best_lambda(LinearSVC(), grad_dict, cv, X, y)
             best_lambda = lambdas[bests.best_index_]

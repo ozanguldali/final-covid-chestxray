@@ -17,7 +17,7 @@ from util.logger_util import log
 ROOT_DIR = str(os.path.dirname(os.path.abspath(__file__)))
 
 
-def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="dataset", penalty=None,
+def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="dataset", penalty: object = False,
          pretrain_file=None, batch_size=8, img_size=112, num_workers=4, cnn_model_name="", optimizer_name='Adam',
          validation_freq=0.1, lr=0.001, momentum=0.9, weight_decay=1e-4,
          update_lr=True, is_pre_trained=False, fine_tune=False, num_epochs=16, normalize=True, lambdas=None, seed=1):

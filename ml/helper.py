@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.svm import LinearSVC
 from sklearn.metrics import confusion_matrix
 from sklearn.pipeline import Pipeline
 
@@ -32,7 +33,7 @@ def get_prediction_kf(kf, model, X, y, tag=None):
         log.info(str(cv) + "-Fold CV -- Iteration " + str(e) + " Test Success Ratio: " + str(100*success_ratio) + "%")
         ratios.append(success_ratio)
 
-        test_prob = model.predict_proba(X_test)
+        test_prob = model._predict_proba_lr(X_test) if isinstance(model, LinearSVC) else model.predict_proba(X_test)
         auc = roc_auc_score(y_test, test_prob, multi_class="ovr")
         log.info(str(cv) + "-Fold CV -- Iteration " + str(e) + " AUC Score: " + str(auc))
         roc_list.append(auc)
