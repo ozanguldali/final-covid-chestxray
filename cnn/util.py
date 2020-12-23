@@ -76,10 +76,10 @@ def is_verified(acc):
     elif model_name == models.resnet18.__name__ and acc > 90.31:
         verified = True
 
-    elif model_name == models.resnet50.__name__ and acc > 80.0:
+    elif model_name == models.resnet50.__name__ and acc > 86.05:
         verified = True
 
-    elif model_name == models.vgg16.__name__ and acc > 80.0:
+    elif model_name == models.vgg16.__name__ and acc > 90.70:
         verified = True
 
     return verified

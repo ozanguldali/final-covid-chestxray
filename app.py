@@ -98,8 +98,87 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(transfer_learning=True, ml_model_name="all", cnn_model_name="alexnet", is_pre_trained=True,
-         dataset_folder="dataset", pretrain_file="89.53_PreTrained_alexnet_SGD_out", img_size=224,
+    main(transfer_learning=True, ml_model_name="all", cnn_model_name="vgg16", is_pre_trained=True,
+         dataset_folder="dataset", pretrain_file="90.7_PreTrained_vgg16_SGD_out", img_size=224,
          cv=10, seed=17, penalty=None)
 
     log.info("Process Finished")
+
+# /Users/ozanguldali/opt/anaconda3/bin/python /Users/ozanguldali/Documents/master_courses/deep_learning/final_project/final-covid-chestxray/app.py
+# 2020-12-23 20:28:03,481 - __init__.py line+14 - INFO - Device is selected as cpu
+# 2020-12-23 20:28:07,644 - app.py line+100 - INFO - Process Started
+# 2020-12-23 20:28:07,645 - app.py line+43 - INFO - Constructing datasets and loaders
+# 2020-12-23 20:28:07,645 - helper.py line+16 - INFO - Setting train data
+# 2020-12-23 20:28:07,649 - helper.py line+18 - INFO - Train data length: 960
+# 2020-12-23 20:28:07,649 - helper.py line+19 - INFO - Setting test data
+# 2020-12-23 20:28:07,650 - helper.py line+21 - INFO - Test data length: 258
+# 2020-12-23 20:28:07,650 - helper.py line+23 - INFO - Setting train loader
+# 2020-12-23 20:28:07,650 - helper.py line+25 - INFO - Setting test loader
+# 2020-12-23 20:28:07,650 - app.py line+52 - INFO - Getting PreTrained CNN model: vgg16 from the Weights of 90.7_PreTrained_vgg16_SGD_out
+# 2020-12-23 20:28:08,855 - model.py line+113 - INFO - Using class size as: 1000
+# 2020-12-23 20:28:10,215 - model.py line+116 - ERROR - Error(s) in loading state_dict for VGG:
+# 	size mismatch for classifier.6.weight: copying a param with shape torch.Size([4, 4096]) from checkpoint, the shape in current model is torch.Size([1000, 4096]).
+# 	size mismatch for classifier.6.bias: copying a param with shape torch.Size([4]) from checkpoint, the shape in current model is torch.Size([1000]).
+# 2020-12-23 20:28:11,397 - model.py line+113 - INFO - Using class size as: 4
+# 2020-12-23 20:28:12,712 - app.py line+63 - INFO - Feature extractor is being created
+# 2020-12-23 20:28:12,713 - app.py line+65 - INFO - Feature extractor is setting to device: cpu
+# 2020-12-23 20:28:12,713 - app.py line+68 - INFO - Merging CNN train&test datasets
+# 2020-12-23 20:28:12,713 - app.py line+71 - INFO - Constructing loader for merged dataset
+# 2020-12-23 20:28:12,714 - app.py line+74 - INFO - Extracting features as X_cnn array and labels as general y vector
+# 100%|██████████| 6/6 [10:15<00:00, 102.58s/it]
+# 2020-12-23 20:38:28,238 - app.py line+81 - INFO - Total class 0 size: 320
+# 2020-12-23 20:38:28,248 - app.py line+82 - INFO - Total class 1 size: 320
+# 2020-12-23 20:38:28,248 - app.py line+83 - INFO - Total class 3 size: 258
+# 2020-12-23 20:38:28,248 - app.py line+84 - INFO - Total class 4 size: 320
+# 2020-12-23 20:38:29,176 - app.py line+90 - INFO - Number of features in X_cnn: 4096
+# 2020-12-23 20:38:29,775 - model.py line+20 - INFO - Running ML model: svm
+# 2020-12-23 20:38:29,775 - util.py line+15 - INFO - Penalty Enabled: False
+# 2020-12-23 20:39:49,535 - helper.py line+48 - INFO - 10-Fold CV Average Test Success Ratio: 97.94472293727135%
+# 2020-12-23 20:39:49,535 - helper.py line+49 - INFO - 10-Fold CV Average AUC Score: 0.9971283508924493
+# 2020-12-23 20:39:49,535 - helper.py line+50 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[30.5  0.6  0.   0.9]
+#  [ 0.1 31.9  0.   0. ]
+#  [ 0.   0.  25.8  0. ]
+#  [ 0.6  0.3  0.  31.1]]
+# 2020-12-23 20:39:49,537 - util.py line+39 - INFO -
+# 2020-12-23 20:39:49,537 - util.py line+15 - INFO - Penalty Enabled: True
+# Fitting 10 folds for each of 6 candidates, totalling 60 fits
+# [Parallel(n_jobs=4)]: Using backend LokyBackend with 4 concurrent workers.
+# [Parallel(n_jobs=4)]: Done  42 tasks      | elapsed:   19.2s
+# [Parallel(n_jobs=4)]: Done  60 out of  60 | elapsed:   40.5s finished
+# 2020-12-23 20:40:31,321 - util.py line+32 - INFO - Best lambda value has determined as: 0.05
+# 2020-12-23 20:40:40,341 - helper.py line+48 - INFO - 10-Fold CV Average Test Success Ratio: 98.2732692047148%
+# 2020-12-23 20:40:40,342 - helper.py line+49 - INFO - 10-Fold CV Average AUC Score: 0.9964514392031891
+# 2020-12-23 20:40:40,342 - helper.py line+50 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[30.8  0.5  0.   0.7]
+#  [ 0.  32.   0.   0. ]
+#  [ 0.   0.  25.8  0. ]
+#  [ 0.6  0.3  0.  31.1]]
+# 2020-12-23 20:40:40,345 - util.py line+39 - INFO -
+# 2020-12-23 20:40:40,346 - model.py line+23 - INFO - Running ML model: lr
+# 2020-12-23 20:40:40,346 - util.py line+15 - INFO - Penalty Enabled: False
+# 2020-12-23 20:41:57,089 - helper.py line+48 - INFO - 10-Fold CV Average Test Success Ratio: 97.94472293727135%
+# 2020-12-23 20:41:57,089 - helper.py line+49 - INFO - 10-Fold CV Average AUC Score: 0.997146672452204
+# 2020-12-23 20:41:57,089 - helper.py line+50 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[30.5  0.6  0.   0.9]
+#  [ 0.1 31.9  0.   0. ]
+#  [ 0.   0.  25.8  0. ]
+#  [ 0.6  0.3  0.  31.1]]
+# 2020-12-23 20:41:57,091 - util.py line+39 - INFO -
+# 2020-12-23 20:41:57,092 - util.py line+15 - INFO - Penalty Enabled: True
+# Fitting 10 folds for each of 6 candidates, totalling 60 fits
+# [Parallel(n_jobs=4)]: Using backend LokyBackend with 4 concurrent workers.
+# [Parallel(n_jobs=4)]: Done  42 tasks      | elapsed:   17.8s
+# [Parallel(n_jobs=4)]: Done  60 out of  60 | elapsed:   38.9s finished
+# 2020-12-23 20:42:37,129 - util.py line+32 - INFO - Best lambda value has determined as: 0.05
+# 2020-12-23 20:42:46,099 - helper.py line+48 - INFO - 10-Fold CV Average Test Success Ratio: 98.2732692047148%
+# 2020-12-23 20:42:46,100 - helper.py line+49 - INFO - 10-Fold CV Average AUC Score: 0.9964420688883464
+# 2020-12-23 20:42:46,100 - helper.py line+50 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[30.8  0.5  0.   0.7]
+#  [ 0.  32.   0.   0. ]
+#  [ 0.   0.  25.8  0. ]
+#  [ 0.6  0.3  0.  31.1]]
+# 2020-12-23 20:42:46,103 - util.py line+39 - INFO -
+# 2020-12-23 20:42:46,222 - app.py line+105 - INFO - Process Finished
+#
+# Process finished with exit code 0
