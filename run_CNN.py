@@ -68,15 +68,21 @@ if __name__ == '__main__':
 
 # alexnet - adam - lr=0.001 - update_lr=True - epochs=60 - acc = 82.64
 # alexnet - adamw - lr=0.001 - update_lr=True - epochs=170 - acc = 84.88
-# alexnet - sgd - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53
+# alexnet - sgd - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 2nd
 
-# resnet18 - adam - lr=0.001 - update_lr=True - epochs=20 - acc = 90.31
-# resnet18 - adamw - lr=0.001 - update_lr=True - epochs=30 - acc = 87.98
+# resnet18 - adam - lr=0.001 - update_lr=True - epochs=20 - acc = 90.31 ----- 1st
+# resnet18 - adamw - lr=0.001 - update_lr=True - epochs=30 - acc = 87.98 ---- 3rd
 # resnet18 - sgd - lr=0.001 - update_lr=False - epochs=110 - acc = 86.82
 
-# resnet50 - adam - lr=0.001 - update_lr=True - epochs= - acc =
-# resnet50 - adamw - lr=0.001 - update_lr=True - epochs= - acc =
-# resnet50 - sgd - lr=0.001 - update_lr=False - epochs= - acc =
+# resnet50 - adam - lr=0.001 - update_lr=True - epochs=30 - acc = 83.72
+# resnet50 - adamw - lr=0.001 - update_lr=True - epochs=190 - acc = 84.50
+# resnet50 - sgd - lr=0.001 - update_lr=False - epochs=200 - acc = 86.05
+# Ör. Test accuracy: 0.8604651162790697
+# 2020-12-23 09:18:03,536 - test.py line+42 - INFO - Confusion Matrix:
+# [[58  8  0 14]
+#  [ 1 78  0  1]
+#  [ 0  0 17  1]
+#  [ 9  2  0 69]]
 
 # vgg16 - adam - lr=0.001 - update_lr=True - epochs= - acc =
 # vgg16 - adamw - lr=0.001 - update_lr=True - epochs= - acc =

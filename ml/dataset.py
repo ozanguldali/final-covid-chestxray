@@ -44,10 +44,14 @@ def read_dataset(dataset_folder, resize_value=None, to_crop=False):
             y.append(label)
 
     if len(X) == 0 or len(y) == 0:
-        iterate_over_directory(dataset_dir + dataset_folder + "/train/Autsim/", 0)
+        iterate_over_directory(dataset_dir + dataset_folder + "/train/Bacterial/", 0)
         iterate_over_directory(dataset_dir + dataset_folder + "/train/Normal/", 1)
-        iterate_over_directory(dataset_dir + dataset_folder + "/test/Autsim/", 0)
+        iterate_over_directory(dataset_dir + dataset_folder + "/train/Viral-COVID19/", 2)
+        iterate_over_directory(dataset_dir + dataset_folder + "/train/Viral-Other/", 3)
+        iterate_over_directory(dataset_dir + dataset_folder + "/test/Bacterial/", 0)
         iterate_over_directory(dataset_dir + dataset_folder + "/test/Normal/", 1)
+        iterate_over_directory(dataset_dir + dataset_folder + "/test/Viral-COVID19/", 2)
+        iterate_over_directory(dataset_dir + dataset_folder + "/test/Viral-Other/", 3)
 
     return X, y
 
