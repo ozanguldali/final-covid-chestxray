@@ -31,14 +31,11 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
     if model_name == models.alexnet.__name__:
         model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)
 
-    elif model_name in (models.resnet18.__name__, models.resnet50.__name__, models.resnet152.__name__):
+    elif model_name in (models.resnet18.__name__, models.resnet50.__name__):
         model = prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes)
 
     elif model_name in (models.vgg16.__name__, models.vgg19.__name__):
-        model = prepare_vgg(model_name, is_pre_trained, fine_tune, num_classes)
-
-    elif model_name == models.densenet169.__name__:
-        model = prepare_densenet(is_pre_trained, fine_tune, num_classes)
+        model = prepare_vgg(is_pre_trained, fine_tune, num_classes)
 
     else:
         log.fatal("model name is not known: " + model_name)
@@ -105,9 +102,6 @@ def weighted_model(model_name, pretrain_file, use_actual_num_classes=False):
 
     elif model_name == models.resnet50.__name__:
         model = models.resnet50(num_classes=4 if use_actual_num_classes else 1000)
-
-    elif model_name == models.resnet152.__name__:
-        model = models.resnet152(num_classes=4 if use_actual_num_classes else 1000)
 
     elif model_name == models.vgg16.__name__:
         model = models.vgg16(num_classes=4 if use_actual_num_classes else 1000)

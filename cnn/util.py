@@ -49,43 +49,18 @@ def prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes):
     return model
 
 
-def prepare_vgg(model_name, is_pre_trained, fine_tune, num_classes):
+def prepare_vgg(is_pre_trained, fine_tune, num_classes):
 
-    if model_name == models.vgg16.__name__:
-        model = models.vgg16(pretrained=is_pre_trained,
-                             num_classes=1000 if is_pre_trained else num_classes)
-        limit_frozen = 5
-    elif model_name == models.vgg19.__name__:
-        model = models.vgg19(pretrained=is_pre_trained,
-                             num_classes=1000 if is_pre_trained else num_classes)
-        limit_frozen = 7
-    else:
-        log.fatal("model name is not known: " + model_name)
-        sys.exit(1)
+    model = models.vgg16(pretrained=is_pre_trained,
+                         num_classes=1000 if is_pre_trained else num_classes)
 
     if fine_tune:
         frozen = nn.Sequential(
-            *[model.features[i] for i in range(limit_frozen)]
+            *[model.features[i] for i in range(5)]
         )
         set_parameter_requires_grad(frozen)
 
     model.classifier[-1] = nn.Linear(model.classifier[-1].in_features, num_classes)
-
-    return model
-
-
-def prepare_densenet(is_pre_trained, fine_tune, num_classes):
-
-    model = models.densenet169(pretrained=is_pre_trained,
-                               num_classes=1000 if is_pre_trained else num_classes)
-
-    if fine_tune:
-        frozen = nn.Sequential(
-            *[model.features[i] for i in range(4)]
-        )
-        set_parameter_requires_grad(frozen)
-
-    model.classifier = nn.Linear(model.classifier.in_features, num_classes)
 
     return model
 
@@ -98,16 +73,13 @@ def is_verified(acc):
     if model_name == models.alexnet.__name__ and acc > 89.53:
         verified = True
 
-    elif model_name == models.resnet18.__name__ and acc > 82.32:
+    elif model_name == models.resnet18.__name__ and acc > 80.0:
         verified = True
 
-    elif model_name == models.vgg16.__name__ and acc > 82.66:
+    elif model_name == models.resnet50.__name__ and acc > 80.0:
         verified = True
 
-    elif model_name == models.vgg19.__name__ and acc > 81.3:
-        verified = True
-
-    elif model_name == models.densenet169.__name__ and acc > 81.98:
+    elif model_name == models.vgg16.__name__ and acc > 80.0:
         verified = True
 
     return verified

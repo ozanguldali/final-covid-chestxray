@@ -59,16 +59,3 @@ def vgg_feature_extractor(model):
     )
 
     return feature_extractor
-
-
-# Deep Features from Convolution Base
-def densenet_feature_extractor(model):
-    print(model.classifier.in_features)
-    feature_extractor = nn.Sequential(
-        model.features,
-        nn.ReLU(inplace=True),
-        nn.AdaptiveMaxPool2d(1),
-        nn.Flatten(),
-    )
-
-    return feature_extractor

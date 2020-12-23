@@ -34,14 +34,11 @@ def get_feature_extractor(model_name, model):
     if model_name == models.alexnet.__name__:
         feature_extractor = alexnet_feature_extractor(model)
 
-    elif model_name in (models.resnet18.__name__, models.resnet50.__name__, models.resnet152.__name__):
+    elif model_name in (models.resnet18.__name__, models.resnet50.__name__):
         feature_extractor = resnet_feature_extractor(model)
 
-    elif model_name in (models.vgg16.__name__, models.vgg19.__name__):
+    elif model_name == models.vgg16.__name__:
         feature_extractor = vgg_feature_extractor(model)
-
-    elif model_name == models.densenet169.__name__:
-        feature_extractor = densenet_feature_extractor(model)
 
     else:
         log.fatal("model name is not known: " + model_name)
