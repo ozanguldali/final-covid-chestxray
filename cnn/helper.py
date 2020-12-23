@@ -4,8 +4,7 @@ from torchvision import models
 
 from cnn import ROOT_DIR
 from cnn.dataset import set_dataset, set_loader
-from cnn.features import alexnet_feature_extractor, resnet_feature_extractor, vgg_feature_extractor, \
-    densenet_feature_extractor
+from cnn.features import alexnet_feature_extractor, resnet_feature_extractor, vgg_feature_extractor
 
 from util.logger_util import log
 
