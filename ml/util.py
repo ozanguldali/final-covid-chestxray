@@ -2,6 +2,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC, SVC
 
 from ml.helper import get_prediction_kf, get_best_lambda
+from ml.save import save_model
 
 from util.logger_util import log
 
@@ -35,7 +36,9 @@ def run_svm(X, y, seed, penalty, kf=None, lambdas=None):
         else:
             svc_cv = SVC(max_iter=100000, probability=True)
 
-        get_prediction_kf(kf=kf, model=svc_cv, X=X, y=y, tag=tag)
+        result = get_prediction_kf(kf=kf, model=svc_cv, X=X, y=y, tag=tag)
+
+        # save_model(result["model"], str(round(float(result["acc"]), 2)) + "_SVM_out.joblib")
         log.info("")
 
 

@@ -85,7 +85,7 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
                 exist_acc.append(float(file.split("_")[0].replace(",", ".")))
             better = all(test_acc > acc for acc in exist_acc)
         if better:
-            save_model(model=model, path=str(round(test_acc, 2)) + "_" + SAVE_FILE[0])
+            save_model(model=model, filename=str(round(test_acc, 2)) + "_" + SAVE_FILE[0])
 
     return model
 

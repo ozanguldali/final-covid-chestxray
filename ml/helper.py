@@ -49,6 +49,8 @@ def get_prediction_kf(kf, model, X, y, tag=None):
     log.info(str(cv) + "-Fold CV Average AUC Score: " + str(np.average(np.array(roc_list))))
     log.info(str(cv) + "-Fold CV Average Confusion Matrix:\n" + str(np.mean(conf_matrices, axis=0)))
 
+    return {"model": model, "acc": str(100 * np.average(np.array(ratios)))}
+
 
 def get_dataset(dataset_folder, img_size, normalize, divide=False):
     log.info("Reading dataset")

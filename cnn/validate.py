@@ -53,4 +53,4 @@ def validate_model(model, test_loader, metric, iterator, save):
             better = all(100 * val_acc > acc for acc in exist_acc)
 
         if better:
-            save_model(model=model, path=str(round(100 * val_acc, 2)) + "_" + SAVE_FILE[0])
+            save_model(model=model, filename=str(round(100 * val_acc, 2)) + "_" + SAVE_FILE[0])
