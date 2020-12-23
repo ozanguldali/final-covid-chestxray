@@ -70,9 +70,9 @@ if __name__ == '__main__':
 # alexnet - adamw - lr=0.001 - update_lr=True - epochs=170 - acc = 84.88
 # alexnet - sgd - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53
 
-# resnet18 - adam - lr=0.001 - update_lr=True - epochs= - acc =
-# resnet18 - adamw - lr=0.001 - update_lr=True - epochs= - acc =
-# resnet18 - sgd - lr=0.001 - update_lr=False - epochs= - acc =
+# resnet18 - adam - lr=0.001 - update_lr=True - epochs=20 - acc = 90.31
+# resnet18 - adamw - lr=0.001 - update_lr=True - epochs=30 - acc = 87.98
+# resnet18 - sgd - lr=0.001 - update_lr=False - epochs=110 - acc = 86.82
 
 # resnet50 - adam - lr=0.001 - update_lr=True - epochs= - acc =
 # resnet50 - adamw - lr=0.001 - update_lr=True - epochs= - acc =
