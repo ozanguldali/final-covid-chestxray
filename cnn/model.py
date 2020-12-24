@@ -6,7 +6,7 @@ import torch.optim as optim
 
 from cnn.helper import get_grad_update_params
 
-from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME
+from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME, architect
 from cnn.load import load_model
 from cnn.save import save_model
 from cnn.summary import get_summary
@@ -28,7 +28,10 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
     num_classes = len(train_loader.dataset.classes)
 
     log.info("Instantiate the model")
-    if model_name == models.alexnet.__name__:
+    if model_name == architect.proposedcnn.__name__:
+        model = architect.proposedcnn()
+
+    elif model_name == models.alexnet.__name__:
         model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)
 
     elif model_name in (models.resnet18.__name__, models.resnet50.__name__):
@@ -93,7 +96,10 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
 def weighted_model(model_name, pretrain_file, use_actual_num_classes=False):
     out_file = ROOT_DIR + "/saved_models/" + pretrain_file + ".pth"
 
-    if model_name == models.alexnet.__name__:
+    if model_name == architect.proposedcnn.__name__:
+        model = architect.proposedcnn()
+
+    elif model_name == models.alexnet.__name__:
         model = models.alexnet(num_classes=4 if use_actual_num_classes else 1000)
 
     elif model_name == models.resnet18.__name__:

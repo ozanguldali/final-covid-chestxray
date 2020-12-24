@@ -63,7 +63,7 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="resnet18", is_pre_trained=True)
+    main(model_name="proposedcnn", batch_size=64, num_epochs=8, update_lr=True, validation_freq=0.125)
     log.info("Process Finished")
 
 # alexnet - adam - lr=0.001 - update_lr=True - epochs=60 - acc = 82.64
