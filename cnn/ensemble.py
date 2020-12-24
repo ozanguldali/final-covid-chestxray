@@ -1,8 +1,5 @@
 import torch
 import torch.nn as nn
-from pytools import F
-
-from cnn import device
 
 __all__ = ['EnsembleNet', 'ensemblenet']
 

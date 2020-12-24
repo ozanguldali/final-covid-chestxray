@@ -77,8 +77,8 @@ if __name__ == '__main__':
 #  [ 5  4  0 71]]
 
 # googlenet - adam - lr=0.001 - update_lr=True - epochs=190 - acc = 89.92 --- 3rd
-# googlenet - adamw - lr=0.001 - update_lr=True - epochs= - acc =
-# googlenet - sgd - lr=0.001 - update_lr=False - epochs= - acc =
+# googlenet - adamw - lr=0.001 - update_lr=True - epochs=40 - acc = 88.37
+# googlenet - sgd - lr=0.001 - update_lr=False - epochs=70 - acc = 87.21
 # Ör. Test accuracy: 0.8837209302325582
 # 2020-12-24 19:30:40,552 - test.py line+42 - INFO - Confusion Matrix:
 # [[59  5  1 15]
