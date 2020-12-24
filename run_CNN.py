@@ -26,24 +26,6 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 
     log.info(test_loader.dataset.class_to_idx)
 
-    set_0, set_1 = 0, 0
-    for imgs, labels in test_loader:
-        if set_0 == 3 and set_1 == 3:
-            break
-
-        for e, label in enumerate(labels.tolist()):
-            if label == 0 and set_0 != 3:
-                writer.add_image("{} - class image sample {}".format(train_data.classes[0], set_0),
-                                 inv_normalize_tensor(imgs[e], normalize))
-                set_0 += 1
-            elif label == 1 and set_1 != 3:
-                writer.add_image("{} - class image sample {}".format(train_data.classes[1], set_1),
-                                 inv_normalize_tensor(imgs[e], normalize))
-                set_1 += 1
-
-            if set_0 == 3 and set_1 == 3:
-                break
-
     log.info("Calling the model: " + model_name)
     if test_without_train:
         model = weighted_model(model_name, pretrain_file)
@@ -63,7 +45,7 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="proposedcnn", batch_size=64, num_epochs=8, update_lr=True, validation_freq=0.125)
+    main(model_name="googlenet", is_pre_trained=True, fine_tune=True, batch_size=64, num_epochs=8, update_lr=True, validation_freq=0.125)
     log.info("Process Finished")
 
 # alexnet - adam - lr=0.001 - update_lr=True - epochs=60 - acc = 82.64

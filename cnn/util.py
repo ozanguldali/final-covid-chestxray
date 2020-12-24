@@ -65,6 +65,26 @@ def prepare_vgg(is_pre_trained, fine_tune, num_classes):
     return model
 
 
+def prepare_googlenet(is_pre_trained, fine_tune, num_classes):
+
+    model = models.googlenet(pretrained=is_pre_trained,
+                             num_classes=1000 if is_pre_trained else num_classes)
+
+    if fine_tune:
+        frozen = nn.Sequential(
+            model.conv1,
+            model.maxpool1,
+            model.conv2,
+            model.conv3,
+            model.maxpool2
+        )
+        set_parameter_requires_grad(frozen)
+
+    model.fc = nn.Linear(model.fc.in_features, num_classes)
+
+    return model
+
+
 def is_verified(acc):
     model_name = MODEL_NAME[0]
 
@@ -80,6 +100,9 @@ def is_verified(acc):
         verified = True
 
     elif model_name == models.vgg16.__name__ and acc > 90.70:
+        verified = True
+
+    elif model_name == models.googlenet.__name__ and acc > 80.0:
         verified = True
 
     return verified

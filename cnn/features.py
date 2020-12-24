@@ -59,3 +59,28 @@ def vgg_feature_extractor(model):
     )
 
     return feature_extractor
+
+
+def googlenet_feature_extractor(model):
+    feature_extractor = nn.Sequential(
+        model.conv1,
+        model.maxpool1,
+        model.conv2,
+        model.conv3,
+        model.maxpool2,
+        model.inception3a,
+        model.inception3b,
+        model.maxpool3,
+        model.inception4a,
+        model.inception4b,
+        model.inception4c,
+        model.inception4d,
+        model.inception4e,
+        model.maxpool4,
+        model.inception5a,
+        model.inception5b,
+        model.avgpool,
+        nn.Flatten()
+    )
+
+    return feature_extractor

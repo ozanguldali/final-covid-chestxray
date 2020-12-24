@@ -12,7 +12,7 @@ from cnn.save import save_model
 from cnn.summary import get_summary
 from cnn.test import test_model
 from cnn.train import train_model
-from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, is_verified
+from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, is_verified, prepare_googlenet
 from util.file_util import path_exists
 
 from util.garbage_util import collect_garbage
@@ -39,6 +39,9 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
 
     elif model_name == models.vgg16.__name__:
         model = prepare_vgg(is_pre_trained, fine_tune, num_classes)
+
+    elif model_name == models.googlenet.__name__:
+        model = prepare_googlenet(is_pre_trained, fine_tune, num_classes)
 
     else:
         log.fatal("model name is not known: " + model_name)
@@ -110,6 +113,9 @@ def weighted_model(model_name, pretrain_file, use_actual_num_classes=False):
 
     elif model_name == models.vgg16.__name__:
         model = models.vgg16(num_classes=4 if use_actual_num_classes else 1000)
+
+    elif model_name == models.googlenet.__name__:
+        model = models.googlenet(num_classes=4 if use_actual_num_classes else 1000)
 
     else:
         log.fatal("model name is not known: " + model_name)
