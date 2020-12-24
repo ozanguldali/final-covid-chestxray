@@ -98,8 +98,8 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(transfer_learning=True, ml_model_name="all", cnn_model_name="vgg16", is_pre_trained=True,
-         dataset_folder="dataset", pretrain_file="90.7_PreTrained_vgg16_SGD_out", img_size=224,
+    main(transfer_learning=True, ml_model_name="all", cnn_model_name="googlenet", is_pre_trained=True,
+         dataset_folder="dataset", pretrain_file="89.92_PreTrained_googlenet_Adam_out", img_size=224,
          cv=10, seed=17, penalty=None)
 
     log.info("Process Finished")

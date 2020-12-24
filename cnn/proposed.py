@@ -3,12 +3,12 @@ import torch.nn as nn
 
 from cnn import device
 
-__all__ = ['ProposedCNN', 'proposedcnn']
+__all__ = ['ProposedNet', 'proposednet']
 
 
-class ProposedCNN(nn.Module):
+class ProposedNet(nn.Module):
     def __init__(self, num_classes=4):
-        super(ProposedCNN, self).__init__()
+        super(ProposedNet, self).__init__()
         self.features = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=128, kernel_size=9, stride=3, padding=2),
             nn.ReLU(inplace=True),
@@ -79,8 +79,8 @@ class ProposedCNN(nn.Module):
         return x
 
 
-def proposedcnn(pretrained=False, pretrained_file=None, **kwargs):
-    r"""ProCNN model architecture from the
+def proposednet(pretrained=False, pretrained_file=None, **kwargs):
+    r"""ProposedNet model architecture
 
     Args:
         :param pretrained: If True, returns a model pre-trained on ImageNet
@@ -88,7 +88,7 @@ def proposedcnn(pretrained=False, pretrained_file=None, **kwargs):
     """
     if pretrained and pretrained_file is None:
         assert "Pretrained Model Weights File must be specified when pretrained model is wished to be used."
-    model = ProposedCNN()
+    model = ProposedNet()
 
     if pretrained:
         map_location = None if torch.cuda.is_available() else device

@@ -45,15 +45,15 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="googlenet", is_pre_trained=True, fine_tune=True, batch_size=64, num_epochs=8, update_lr=True, validation_freq=0.125)
+    main(model_name="ensemblenet", is_pre_trained=True, fine_tune=False, batch_size=64, num_epochs=8, update_lr=True, validation_freq=0.125)
     log.info("Process Finished")
 
 # alexnet - adam - lr=0.001 - update_lr=True - epochs=60 - acc = 82.64
 # alexnet - adamw - lr=0.001 - update_lr=True - epochs=170 - acc = 84.88
-# *alexnet - sgd - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 2nd
+# *alexnet - sgd - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 4th
 
-# *resnet18 - adam - lr=0.001 - update_lr=True - epochs=20 - acc = 90.31 ----- 1st
-# resnet18 - adamw - lr=0.001 - update_lr=True - epochs=30 - acc = 87.98 ---- 4th
+# *resnet18 - adam - lr=0.001 - update_lr=True - epochs=20 - acc = 90.31 ----- 2nd
+# resnet18 - adamw - lr=0.001 - update_lr=True - epochs=30 - acc = 87.98 ----- 5th
 # resnet18 - sgd - lr=0.001 - update_lr=False - epochs=110 - acc = 86.82
 
 # resnet50 - adam - lr=0.001 - update_lr=True - epochs=30 - acc = 83.72
@@ -68,10 +68,20 @@ if __name__ == '__main__':
 
 # vgg16 - adam - lr=0.001 - update_lr=True - epochs=150 - acc = 86.05
 # vgg16 - adamw - lr=0.001 - update_lr=True - epochs=100 - acc = 87.59
-# *vgg16 - sgd - lr=0.001 - update_lr=False - epochs=130 - acc = 90.70 ---- 1st
+# *vgg16 - sgd - lr=0.001 - update_lr=False - epochs=130 - acc = 90.70 ------ 1st
 # Ör. Test accuracy: 0.8875968992248062
 # 2020-12-23 16:32:04,232 - test.py line+42 - INFO - Confusion Matrix:
 # [[61  7  0 12]
 #  [ 0 79  0  1]
 #  [ 0  0 18  0]
 #  [ 5  4  0 71]]
+
+# googlenet - adam - lr=0.001 - update_lr=True - epochs=190 - acc = 89.92 --- 3rd
+# googlenet - adamw - lr=0.001 - update_lr=True - epochs= - acc =
+# googlenet - sgd - lr=0.001 - update_lr=False - epochs= - acc =
+# Ör. Test accuracy: 0.8837209302325582
+# 2020-12-24 19:30:40,552 - test.py line+42 - INFO - Confusion Matrix:
+# [[59  5  1 15]
+#  [ 0 78  1  1]
+#  [ 0  0 18  0]
+#  [ 4  3  0 73]]
