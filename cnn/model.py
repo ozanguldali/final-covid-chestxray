@@ -33,7 +33,7 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
 
     elif model_name == ensemble.ensemblenet.__name__:
         model = ensemble.ensemblenet(
-            model1=prepare_resnet(models.resnet18.__name__, True, False, num_classes),
+            model1=prepare_resnet(models.resnet50.__name__, True, False, num_classes),
             model2=prepare_vgg(True, False, num_classes)
         )
 

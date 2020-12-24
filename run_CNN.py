@@ -53,12 +53,21 @@ if __name__ == '__main__':
 # *alexnet - sgd - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 4th
 
 # *resnet18 - adam - lr=0.001 - update_lr=True - epochs=20 - acc = 90.31 ----- 2nd
-# resnet18 - adamw - lr=0.001 - update_lr=True - epochs=30 - acc = 87.98 ----- 5th
+# resnet18 - adamw - lr=0.001 - update_lr=True - epochs=30 - acc = 87.98
 # resnet18 - sgd - lr=0.001 - update_lr=False - epochs=110 - acc = 86.82
 
 # resnet50 - adam - lr=0.001 - update_lr=True - epochs=30 - acc = 83.72
 # resnet50 - adamw - lr=0.001 - update_lr=True - epochs=190 - acc = 84.50
 # *resnet50 - sgd - lr=0.001 - update_lr=False - epochs=200 - acc = 86.05
+
+# vgg16 - adam - lr=0.001 - update_lr=True - epochs=150 - acc = 86.05
+# vgg16 - adamw - lr=0.001 - update_lr=True - epochs=100 - acc = 87.59
+# *vgg16 - sgd - lr=0.001 - update_lr=False - epochs=130 - acc = 90.70 ------ 1st
+
+# googlenet - adam - lr=0.001 - update_lr=True - epochs=190 - acc = 89.92 --- 3rd
+# googlenet - adamw - lr=0.001 - update_lr=True - epochs=200 - acc = 89.14 -- 5th
+# googlenet - sgd - lr=0.001 - update_lr=False - epochs=180 - acc = 87.59
+
 # Ör. Test accuracy: 0.8604651162790697
 # 2020-12-23 09:18:03,536 - test.py line+42 - INFO - Confusion Matrix:
 # [[58  8  0 14]
@@ -66,9 +75,6 @@ if __name__ == '__main__':
 #  [ 0  0 17  1]
 #  [ 9  2  0 69]]
 
-# vgg16 - adam - lr=0.001 - update_lr=True - epochs=150 - acc = 86.05
-# vgg16 - adamw - lr=0.001 - update_lr=True - epochs=100 - acc = 87.59
-# *vgg16 - sgd - lr=0.001 - update_lr=False - epochs=130 - acc = 90.70 ------ 1st
 # Ör. Test accuracy: 0.8875968992248062
 # 2020-12-23 16:32:04,232 - test.py line+42 - INFO - Confusion Matrix:
 # [[61  7  0 12]
@@ -76,12 +82,16 @@ if __name__ == '__main__':
 #  [ 0  0 18  0]
 #  [ 5  4  0 71]]
 
-# googlenet - adam - lr=0.001 - update_lr=True - epochs=190 - acc = 89.92 --- 3rd
-# googlenet - adamw - lr=0.001 - update_lr=True - epochs=40 - acc = 88.37
-# googlenet - sgd - lr=0.001 - update_lr=False - epochs=70 - acc = 87.21
 # Ör. Test accuracy: 0.8837209302325582
 # 2020-12-24 19:30:40,552 - test.py line+42 - INFO - Confusion Matrix:
 # [[59  5  1 15]
 #  [ 0 78  1  1]
 #  [ 0  0 18  0]
 #  [ 4  3  0 73]]
+
+# Ör. Test accuracy: 0.8914728682170543
+# 2020-12-24 20:24:29,631 - test.py line+42 - INFO - Confusion Matrix:
+# [[64  2  0 14]
+#  [ 1 76  1  2]
+#  [ 0  0 18  0]
+#  [ 7  1  0 72]]
