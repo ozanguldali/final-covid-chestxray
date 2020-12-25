@@ -1,4 +1,5 @@
-from cnn import device
+import cnn
+from cnn import device, proposednet, summary
 from cnn.dataset import normalize_tensor, inv_normalize_tensor
 from cnn.helper import set_dataset_and_loaders
 from util.tensorboard_util import writer
@@ -25,11 +26,16 @@ def show_layer(img, title, w, h):
 
 
 def visualize(model_name, dataset_folder="dataset", img_size=112, normalize=False):
-
     _, _, _, test_loader = set_dataset_and_loaders(dataset_folder, batch_size=1,
                                                    img_size=img_size, num_workers=4, normalize=normalize)
 
-    show = {"autism": True, "normal": True}
+    original_labels = list(test_loader.dataset.class_to_idx.keys())
+    show = {
+        original_labels[0]: False,
+        original_labels[1]: False,
+        original_labels[2]: False,
+        original_labels[3]: True
+    }
     labels = list(show.keys())
 
     for image, label in test_loader:
@@ -38,31 +44,74 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize=Fals
         label = label.to(device)
         label = labels[label.item()]
 
-        if not show[labels[0]] and not show[labels[1]]:
+        if not show[labels[0]] and not show[labels[1]] and not show[labels[2]] and not show[labels[3]]:
             break
 
         if not show[label]:
             pass
 
         else:
-            if normalize is not False:
-                plt.title("original - " + label)
-                plt.imshow(inv_normalize_tensor(image[0]).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-                plt.show()
-                plt.title("normalized - " + label)
-                plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-                plt.show()
+            # if normalize is not False:
+            #     plt.title("original - " + label)
+            #     plt.imshow(inv_normalize_tensor(image[0]).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+            #     plt.show()
+            #     plt.title("normalized - " + label)
+            #     plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+            #     plt.show()
+            #
+            # else:
+            #     plt.title("original - " + label)
+            #     plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+            #     plt.show()
+            #     plt.title("normalized - " + label)
+            #     plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+            #     plt.show()
+            # # writer.add_image(tag="initial", img_tensor=image[0])
 
-            else:
-                plt.title("original - " + label)
-                plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-                plt.show()
-                plt.title("normalized - " + label)
-                plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-                plt.show()
-            # writer.add_image(tag="initial", img_tensor=image[0])
+            if model_name == proposednet.proposednet.__name__:
+                model = proposednet.proposednet()
+                summary.get_summary(model, test_loader)
 
-            if model_name == models.resnet18.__name__:
+                image = nn.Sequential(*[model.features[i] for i in range(2)])(image)
+                show_layer(image[0], "conv1_1 - " + label, 8, 8)
+
+                image = nn.Sequential(*[model.features[i] for i in range(2, 5)])(image)
+                show_layer(image[0], "conv1_2 - " + label, 8, 8)
+
+                image = nn.Sequential(*[model.features[i] for i in range(5, 7)])(image)
+                show_layer(image[0], "conv2_1 - " + label, 8, 8)
+
+                image = nn.Sequential(*[model.features[i] for i in range(7, 11)])(image)
+                show_layer(image[0], "conv2_2 - " + label, 8, 8)
+
+                image = nn.Sequential(*[model.features[i] for i in range(11, 13)])(image)
+                show_layer(image[0], "conv3_1 - " + label, 12, 12)
+
+                image = nn.Sequential(*[model.features[i] for i in range(13, 15)])(image)
+                show_layer(image[0], "conv3_2 - " + label, 12, 12)
+
+                image = nn.Sequential(*[model.features[i] for i in range(15, 19)])(image)
+                show_layer(image[0], "conv3_3 - " + label, 12, 12)
+
+                image = nn.Sequential(*[model.features[i] for i in range(19, 21)])(image)
+                show_layer(image[0], "conv4_1 - " + label, 16, 16)
+
+                image = nn.Sequential(*[model.features[i] for i in range(21, 23)])(image)
+                show_layer(image[0], "conv4_2 - " + label, 16, 16)
+
+                image = nn.Sequential(*[model.features[i] for i in range(23, 27)])(image)
+                show_layer(image[0], "conv4_3 - " + label, 16, 16)
+
+                image = nn.Sequential(*[model.features[i] for i in range(27, 29)])(image)
+                show_layer(image[0], "conv5_1 - " + label, 24, 24)
+
+                image = nn.Sequential(*[model.features[i] for i in range(29, 31)])(image)
+                show_layer(image[0], "conv5_2 - " + label, 24, 24)
+
+                image = nn.Sequential(*[model.features[i] for i in range(31, 33)])(image)
+                show_layer(image[0], "conv5_3 - " + label, 24, 24)
+
+            elif model_name == models.resnet18.__name__:
                 model = models.resnet18()
 
                 image = nn.Sequential(model.conv1, model.bn1, model.relu, model.maxpool)(image)
@@ -85,6 +134,7 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize=Fals
 
             elif model_name == models.vgg16.__name__:
                 model = models.vgg16()
+                summary.get_summary(model, train_loader=test_loader)
 
                 image = nn.Sequential(*[model.features[i] for i in range(5)])(image)
                 show_layer(image[0], "block1 - " + label, 8, 8)
@@ -132,4 +182,4 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize=Fals
 
 
 if __name__ == '__main__':
-    visualize("resnet18", "dataset", img_size=112, normalize=True)
+    visualize("proposednet", "dataset", img_size=224, normalize=True)
