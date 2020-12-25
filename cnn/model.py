@@ -6,7 +6,8 @@ import torch.optim as optim
 
 from cnn.helper import get_grad_update_params, get_model
 
-from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME, ensemblenet
+from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME
+from cnn.models import ensemblenet
 from cnn.load import load_model
 from cnn.save import save_model
 from cnn.summary import get_summary

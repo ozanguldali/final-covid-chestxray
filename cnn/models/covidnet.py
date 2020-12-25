@@ -5,6 +5,8 @@ from cnn import device
 
 import torch.nn.functional as F
 
+__all__ = ['CovidNet', 'covidnet']
+
 
 class Flatten(nn.Module):
     def forward(self, input):

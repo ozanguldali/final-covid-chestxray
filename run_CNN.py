@@ -50,7 +50,7 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="covidnet", is_pre_trained=False, fine_tune=False, batch_size=64, num_epochs=10, update_lr=False, validation_freq=1.0)
+    main(model_name="darkcovidnet", is_pre_trained=False, fine_tune=False, batch_size=64, num_epochs=10, update_lr=False, validation_freq=1.0)
     log.info("Process Finished")
 
 

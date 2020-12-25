@@ -10,13 +10,13 @@ class ProposedNet(nn.Module):
     def __init__(self, num_classes=4):
         super(ProposedNet, self).__init__()
         self.features = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=15, stride=1, padding=1),
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=5, stride=1, padding=1),
+            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=5, stride=1, padding=1),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
@@ -24,7 +24,7 @@ class ProposedNet(nn.Module):
             nn.BatchNorm2d(num_features=64),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
-            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=5, stride=1, padding=1),
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
             nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
@@ -34,7 +34,7 @@ class ProposedNet(nn.Module):
             nn.BatchNorm2d(num_features=128),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
-            nn.Conv2d(in_channels=128, out_channels=256, kernel_size=5, stride=1, padding=1),
+            nn.Conv2d(in_channels=128, out_channels=256, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
             nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
@@ -44,7 +44,7 @@ class ProposedNet(nn.Module):
             nn.BatchNorm2d(num_features=256),
             nn.MaxPool2d(kernel_size=2, stride=2),
 
-            nn.Conv2d(in_channels=256, out_channels=512, kernel_size=5, stride=1, padding=1),
+            nn.Conv2d(in_channels=256, out_channels=512, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
             nn.Conv2d(in_channels=512, out_channels=512, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
@@ -55,29 +55,29 @@ class ProposedNet(nn.Module):
             nn.MaxPool2d(kernel_size=2, stride=2),
         )
 
-        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(4, 4))
+        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(7, 7))
 
         self.flatten = nn.Flatten()
 
         self.fc1 = nn.Sequential(
-            nn.Linear(4 * 4 * 512, 4 * 4 * 256)
+            nn.Linear(7 * 7 * 512, 7 * 7 * 256)
         )
 
         self.fc2 = nn.Sequential(
             nn.ReLU(inplace=True),
-            nn.Linear(4 * 4 * 256, 2 * 2 * 256)
+            nn.Linear(7 * 7 * 256, 7 * 7 * 4)
         )
 
         self.fc3 = nn.Sequential(
             nn.ReLU(inplace=True),
             nn.Dropout2d(),
-            nn.Linear(1024, 1024)
+            nn.Linear(196, 196)
         )
 
         self.fc4 = nn.Sequential(
             nn.ReLU(inplace=True),
             nn.Dropout2d(),
-            nn.Linear(1024, num_classes)
+            nn.Linear(196, num_classes)
         )
 
         # self.classifier = nn.Sequential(
