@@ -12,13 +12,18 @@ from util.tensorboard_util import writer
 
 def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test_without_train=False, pretrain_file=None,
          num_workers=4, model_name='alexnet', optimizer_name='Adam', is_pre_trained=False, fine_tune=False,
-         num_epochs=200, update_lr=True, normalize=None, validation_freq=0.05, lr=0.001, momentum=0.9, weight_decay=1e-4):
+         model1="", model2="", num_epochs=200, update_lr=True, normalize=None, validation_freq=0.05,
+         lr=0.001, momentum=0.9, weight_decay=1e-4):
+
+    if test_without_train and pretrain_file is None:
+        log.fatal("Pretrained weight file is a must on test without train approach.")
+        sys.exit(1)
+
     if not is_pre_trained and fine_tune:
         fine_tune = False
 
-    if test_without_train and pretrain_file is None:
-        log.fatal("Pretrained weight file is a must on test without train approach")
-        sys.exit(1)
+    if model_name == "ensemblenet" and (model1 == "" or model2 == ""):
+        log.fatal("Two models must be specified to create an ensemble cnn model.")
 
     log.info("Constructing datasets and loaders")
     train_data, train_loader, test_data, test_loader = set_dataset_and_loaders(dataset_folder, batch_size,
@@ -34,8 +39,8 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
     else:
         run_model(model_name=model_name, optimizer_name=optimizer_name, is_pre_trained=is_pre_trained,
                   fine_tune=fine_tune, train_loader=train_loader, test_loader=test_loader,
-                  num_epochs=num_epochs, save=save,
-                  update_lr=update_lr, dataset_folder=dataset_folder, validation_freq=validation_freq, lr=lr,
+                  num_epochs=num_epochs, save=save, model1_name=model1, model2_name=model2,
+                  update_lr=update_lr, validation_freq=validation_freq, lr=lr,
                   momentum=momentum, weight_decay=weight_decay)
 
     collect_garbage()

@@ -4,7 +4,7 @@ import torch.nn as nn
 import torchvision.models as models
 import torch.optim as optim
 
-from cnn.helper import get_grad_update_params
+from cnn.helper import get_grad_update_params, get_model
 
 from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME, proposed, ensemble
 from cnn.load import load_model
@@ -12,7 +12,7 @@ from cnn.save import save_model
 from cnn.summary import get_summary
 from cnn.test import test_model
 from cnn.train import train_model
-from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, is_verified, prepare_googlenet
+from cnn.util import is_verified
 from util.file_util import path_exists
 
 from util.garbage_util import collect_garbage
@@ -20,38 +20,22 @@ from util.logger_util import log
 
 
 def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs, train_loader, test_loader,
-              validation_freq, lr, momentum, weight_decay, update_lr=True, save=False, dataset_folder="dataset"):
+              validation_freq, lr, momentum, weight_decay, model1_name, model2_name, update_lr=True, save=False):
     collect_garbage()
 
     MODEL_NAME[0] = model_name
 
     num_classes = len(train_loader.dataset.classes)
 
-    log.info("Instantiate the model")
-    if model_name == proposed.proposednet.__name__:
-        model = proposed.proposednet()
-
-    elif model_name == ensemble.ensemblenet.__name__:
+    if model_name == ensemble.ensemblenet.__name__:
+        model1 = get_model(model_name=model1_name, is_pre_trained=True, fine_tune=False, num_classes=num_classes)
+        model2 = get_model(model_name=model2_name, is_pre_trained=True, fine_tune=False, num_classes=num_classes)
         model = ensemble.ensemblenet(
-            model1=prepare_resnet(models.resnet50.__name__, True, False, num_classes),
-            model2=prepare_vgg(True, False, num_classes)
+            model1=model1,
+            model2=model2
         )
-
-    elif model_name == models.alexnet.__name__:
-        model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)
-
-    elif model_name in (models.resnet18.__name__, models.resnet50.__name__):
-        model = prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes)
-
-    elif model_name == models.vgg16.__name__:
-        model = prepare_vgg(is_pre_trained, fine_tune, num_classes)
-
-    elif model_name == models.googlenet.__name__:
-        model = prepare_googlenet(is_pre_trained, fine_tune, num_classes)
-
     else:
-        log.fatal("model name is not known: " + model_name)
-        sys.exit(1)
+        model = get_model(model_name=model_name, is_pre_trained=is_pre_trained, fine_tune=fine_tune, num_classes=num_classes)
 
     log.info("Setting the model to device")
     model = model.to(device)

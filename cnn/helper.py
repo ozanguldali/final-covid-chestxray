@@ -2,9 +2,10 @@ import sys
 
 from torchvision import models
 
-from cnn import ROOT_DIR
+from cnn import ROOT_DIR, proposed
 from cnn.dataset import set_dataset, set_loader
 from cnn.features import alexnet_feature_extractor, resnet_feature_extractor, vgg_feature_extractor
+from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, prepare_googlenet
 
 from util.logger_util import log
 
@@ -26,6 +27,30 @@ def set_dataset_and_loaders(dataset_folder, batch_size, img_size, num_workers, n
     test_loader = set_loader(dataset=test_data, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
     return train_data, train_loader, test_data, test_loader
+
+
+def get_model(model_name, is_pre_trained, fine_tune, num_classes):
+    log.info("Instantiate the model")
+    if model_name == proposed.proposednet.__name__:
+        model = proposed.proposednet()
+
+    elif model_name == models.alexnet.__name__:
+        model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)
+
+    elif model_name in (models.resnet18.__name__, models.resnet50.__name__):
+        model = prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes)
+
+    elif model_name == models.vgg16.__name__:
+        model = prepare_vgg(is_pre_trained, fine_tune, num_classes)
+
+    elif model_name == models.googlenet.__name__:
+        model = prepare_googlenet(is_pre_trained, fine_tune, num_classes)
+
+    else:
+        log.fatal("model name is not known: " + model_name)
+        sys.exit(1)
+
+    return model
 
 
 def get_feature_extractor(model_name, model):
