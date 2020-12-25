@@ -49,66 +49,56 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize=Fals
             pass
 
         else:
-            # if normalize is not False:
-            #     plt.title("original - " + label)
-            #     plt.imshow(inv_normalize_tensor(image[0]).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #     plt.title("normalized - " + label)
-            #     plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #
-            # else:
-            #     plt.title("original - " + label)
-            #     plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #     plt.title("normalized - " + label)
-            #     plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            # # writer.add_image(tag="initial", img_tensor=image[0])
+            if normalize is not False:
+                plt.title("original - " + label)
+                plt.imshow(inv_normalize_tensor(image[0]).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+                plt.title("normalized - " + label)
+                plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+
+            else:
+                plt.title("original - " + label)
+                plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+                plt.title("normalized - " + label)
+                plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+            # writer.add_image(tag="initial", img_tensor=image[0])
 
             if model_name == proposednet.proposednet.__name__:
                 model = proposednet.proposednet()
                 summary.get_summary(model, test_loader)
 
-                # image = nn.Sequential(*[model.features[i] for i in range(2)])(image)
-                # show_layer(image[0], "conv1_1 - " + label, 8, 8)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(2, 5)])(image)
-                # show_layer(image[0], "conv1_2 - " + label, 8, 8)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(5, 7)])(image)
-                # show_layer(image[0], "conv2_1 - " + label, 8, 8)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(7, 11)])(image)
-                # show_layer(image[0], "conv2_2 - " + label, 8, 8)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(11, 13)])(image)
-                # show_layer(image[0], "conv3_1 - " + label, 12, 12)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(13, 15)])(image)
-                # show_layer(image[0], "conv3_2 - " + label, 12, 12)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(15, 19)])(image)
-                # show_layer(image[0], "conv3_3 - " + label, 12, 12)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(19, 21)])(image)
-                # show_layer(image[0], "conv4_1 - " + label, 16, 16)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(21, 23)])(image)
-                # show_layer(image[0], "conv4_2 - " + label, 16, 16)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(23, 27)])(image)
-                # show_layer(image[0], "conv4_3 - " + label, 16, 16)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(27, 29)])(image)
-                # show_layer(image[0], "conv5_1 - " + label, 24, 24)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(29, 31)])(image)
-                # show_layer(image[0], "conv5_2 - " + label, 24, 24)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(31, 33)])(image)
-                # show_layer(image[0], "conv5_3 - " + label, 24, 24)
-                show_layer(model.features(image)[0], "final - " + label, 24, 24)
+                image = nn.Sequential(*[model.features[i] for i in range(2)])(image)
+                show_layer(image[0], "conv1_1 - " + label, 8, 8)
+
+                image = nn.Sequential(*[model.features[i] for i in range(2, 5)])(image)
+                show_layer(image[0], "conv1_2 - " + label, 8, 8)
+
+                image = nn.Sequential(*[model.features[i] for i in range(5, 7)])(image)
+                show_layer(image[0], "conv2_1 - " + label, 12, 12)
+
+                image = nn.Sequential(*[model.features[i] for i in range(7, 11)])(image)
+                show_layer(image[0], "conv2_2 - " + label, 12, 12)
+
+                image = nn.Sequential(*[model.features[i] for i in range(11, 13)])(image)
+                show_layer(image[0], "conv3_1 - " + label, 16, 16)
+
+                image = nn.Sequential(*[model.features[i] for i in range(13, 15)])(image)
+                show_layer(image[0], "conv3_2 - " + label, 16, 16)
+
+                image = nn.Sequential(*[model.features[i] for i in range(15, 19)])(image)
+                show_layer(image[0], "conv3_3 - " + label, 16, 16)
+
+                image = nn.Sequential(*[model.features[i] for i in range(19, 21)])(image)
+                show_layer(image[0], "conv4_1 - " + label, 24, 24)
+
+                image = nn.Sequential(*[model.features[i] for i in range(21, 23)])(image)
+                show_layer(image[0], "conv4_2 - " + label, 24, 24)
+
+                image = nn.Sequential(*[model.features[i] for i in range(23, 27)])(image)
+                show_layer(image[0], "conv4_3 - " + label, 24, 24)
 
             elif model_name == models.resnet18.__name__:
                 model = models.resnet18()
@@ -135,22 +125,20 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize=Fals
                 model = models.vgg16()
                 summary.get_summary(model, train_loader=test_loader)
 
-                # image = nn.Sequential(*[model.features[i] for i in range(5)])(image)
-                # show_layer(image[0], "block1 - " + label, 8, 8)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(5, 10)])(image)
-                # show_layer(image[0], "block2 - " + label, 8, 16)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(10, 17)])(image)
-                # show_layer(image[0], "block3 - " + label, 16, 16)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(17, 24)])(image)
-                # show_layer(image[0], "block4 - " + label, 16, 32)
-                #
-                # image = nn.Sequential(*[model.features[i] for i in range(24, 31)])(image)
-                # show_layer(image[0], "block5 - " + label, 16, 32)
-                image = nn.Sequential(*[model.features[i] for i in range(30)])(image)
-                show_layer(image[0], "final - " + label, 24, 24)
+                image = nn.Sequential(*[model.features[i] for i in range(5)])(image)
+                show_layer(image[0], "block1 - " + label, 8, 8)
+
+                image = nn.Sequential(*[model.features[i] for i in range(5, 10)])(image)
+                show_layer(image[0], "block2 - " + label, 8, 16)
+
+                image = nn.Sequential(*[model.features[i] for i in range(10, 17)])(image)
+                show_layer(image[0], "block3 - " + label, 16, 16)
+
+                image = nn.Sequential(*[model.features[i] for i in range(17, 24)])(image)
+                show_layer(image[0], "block4 - " + label, 16, 32)
+
+                image = nn.Sequential(*[model.features[i] for i in range(24, 31)])(image)
+                show_layer(image[0], "block5 - " + label, 16, 32)
 
             elif model_name == models.alexnet.__name__:
                 model = models.alexnet()
