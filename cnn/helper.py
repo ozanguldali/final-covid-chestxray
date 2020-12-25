@@ -5,7 +5,7 @@ from torchvision import models
 from cnn import ROOT_DIR, proposed
 from cnn.dataset import set_dataset, set_loader
 from cnn.features import alexnet_feature_extractor, resnet_feature_extractor, vgg_feature_extractor
-from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, prepare_googlenet
+from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, prepare_googlenet, prepare_densenet
 
 from util.logger_util import log
 
@@ -37,11 +37,14 @@ def get_model(model_name, is_pre_trained, fine_tune, num_classes):
     elif model_name == models.alexnet.__name__:
         model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)
 
-    elif model_name in (models.resnet18.__name__, models.resnet50.__name__):
+    elif model_name in (models.resnet18.__name__, models.resnet50.__name__, models.resnet152.__name__):
         model = prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes)
 
-    elif model_name == models.vgg16.__name__:
-        model = prepare_vgg(is_pre_trained, fine_tune, num_classes)
+    elif model_name in (models.vgg16.__name__, models.vgg19.__name__):
+        model = prepare_vgg(model_name, is_pre_trained, fine_tune, num_classes)
+
+    elif model_name == models.densenet169.__name__:
+        model = prepare_densenet(is_pre_trained, fine_tune, num_classes)
 
     elif model_name == models.googlenet.__name__:
         model = prepare_googlenet(is_pre_trained, fine_tune, num_classes)
