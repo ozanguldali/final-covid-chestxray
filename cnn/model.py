@@ -4,10 +4,10 @@ import torch.nn as nn
 import torchvision.models as models
 import torch.optim as optim
 
-from cnn.helper import get_grad_update_params, get_model
+from cnn.helper import get_grad_update_params, get_model, get_feature_extractor
 
 from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME
-from cnn.models import ensemblenet
+from cnn.models import ensemblenet, proposednet
 from cnn.load import load_model
 from cnn.save import save_model
 from cnn.summary import get_summary
@@ -32,8 +32,9 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
         model1 = get_model(model_name=model1_name, is_pre_trained=True, fine_tune=False, num_classes=num_classes)
         model2 = get_model(model_name=model2_name, is_pre_trained=True, fine_tune=False, num_classes=num_classes)
         model = ensemblenet.ensemblenet(
-            model1=model1,
-            model2=model2
+            model1=get_feature_extractor(model_name=model1_name, model=model1),
+            model2=get_feature_extractor(model_name=model2_name, model=model2),
+            in_features=4096 + 196
         )
     else:
         model = get_model(model_name=model_name, is_pre_trained=is_pre_trained, fine_tune=fine_tune, num_classes=num_classes)
@@ -90,8 +91,8 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
 def weighted_model(model_name, pretrain_file, use_actual_num_classes=False):
     out_file = ROOT_DIR + "/saved_models/" + pretrain_file + ".pth"
 
-    if model_name == proposed.proposednet.__name__:
-        model = proposed.proposednet()
+    if model_name == proposednet.proposednet.__name__:
+        model = proposednet.proposednet()
 
     elif model_name == models.alexnet.__name__:
         model = models.alexnet(num_classes=4 if use_actual_num_classes else 1000)

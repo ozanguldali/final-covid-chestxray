@@ -50,13 +50,17 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="darkcovidnet", is_pre_trained=False, fine_tune=False, batch_size=64, num_epochs=10, update_lr=False, validation_freq=1.0)
+    main(model_name="ensemblenet", model1_name="proposednet", model2_name="alexnet", save=True, is_pre_trained=False, fine_tune=False, batch_size=64, num_epochs=1, update_lr=False, validation_freq=1.0)
     log.info("Process Finished")
 
 
 # proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 80.62
 # proposed - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=200 - acc = 84.49
 # proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=60 - acc = 84.88
+
+# pronet - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 81.78
+# pronet - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=200 - acc = 84.49
+# pronet - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=60 - acc = 84.88
 
 # alexnet - adam  - lr=0.001 - update_lr=True  - epochs=60 - acc = 82.64
 # alexnet - adamw - lr=0.001 - update_lr=True  - epochs=170 - acc = 84.88

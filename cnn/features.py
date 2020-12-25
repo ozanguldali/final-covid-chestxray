@@ -20,6 +20,19 @@ def extract_features(data_loader, feature_extractor):
 
 
 # Deep Features from FC2
+def proposednet_feature_extractor(model):
+    feature_extractor = nn.Sequential(
+        model.features,
+        model.avgpool,
+        nn.Flatten(),
+        model.fc1,
+        model.fc2
+    )
+
+    return feature_extractor
+
+
+# Deep Features from FC2
 def alexnet_feature_extractor(model):
     feature_extractor = nn.Sequential(
         model.features,

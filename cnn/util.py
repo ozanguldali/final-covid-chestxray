@@ -128,24 +128,25 @@ def prepare_squeezenet(is_pre_trained, fine_tune, num_classes):
 def is_verified(acc):
     model_name = MODEL_NAME[0]
 
-    verified = False
+    if model_name == models.alexnet.__name__:
+        verified = acc > 89.53
 
-    if model_name == models.alexnet.__name__ and acc > 89.53:
-        verified = True
+    elif model_name == models.resnet18.__name__:
+        verified = acc > 90.31
 
-    elif model_name == models.resnet18.__name__ and acc > 90.31:
-        verified = True
+    elif model_name == models.resnet50.__name__:
+        verified = acc > 86.05
 
-    elif model_name == models.resnet50.__name__ and acc > 86.05:
-        verified = True
+    elif model_name == models.vgg16.__name__:
+        verified = acc > 90.70
 
-    elif model_name == models.vgg16.__name__ and acc > 90.70:
-        verified = True
+    elif model_name == models.googlenet.__name__:
+        verified = acc > 80.0
 
-    elif model_name == models.googlenet.__name__ and acc > 80.0:
-        verified = True
+    elif model_name == models.squeezenet1_1.__name__:
+        verified = acc > 80.0
 
-    elif model_name == models.squeezenet1_1.__name__ and acc > 80.0:
+    else:
         verified = True
 
     return verified

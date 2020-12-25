@@ -5,9 +5,8 @@ from torchvision import models
 from cnn import ROOT_DIR
 from cnn.models import covidnet, proposednet, darkcovidnet
 from cnn.dataset import set_dataset, set_loader
-from cnn.features import alexnet_feature_extractor, resnet_feature_extractor, vgg_feature_extractor
-from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, prepare_googlenet, prepare_densenet, \
-    prepare_squeezenet
+from cnn.features import *
+from cnn.util import *
 
 from util.logger_util import log
 
@@ -69,7 +68,10 @@ def get_model(model_name, is_pre_trained, fine_tune, num_classes):
 
 def get_feature_extractor(model_name, model):
 
-    if model_name == models.alexnet.__name__:
+    if model_name == proposednet.proposednet.__name__:
+        feature_extractor = proposednet_feature_extractor(model)
+
+    elif model_name == models.alexnet.__name__:
         feature_extractor = alexnet_feature_extractor(model)
 
     elif model_name in (models.resnet18.__name__, models.resnet50.__name__):
@@ -77,6 +79,12 @@ def get_feature_extractor(model_name, model):
 
     elif model_name == models.vgg16.__name__:
         feature_extractor = vgg_feature_extractor(model)
+
+    elif model_name == models.googlenet.__name__:
+        feature_extractor = googlenet_feature_extractor(model)
+
+    elif model_name == models.squeezenet1_1.__name__:
+        feature_extractor = squeezenet_feature_extractor(model)
 
     else:
         log.fatal("model name is not known: " + model_name)
