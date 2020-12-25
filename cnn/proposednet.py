@@ -60,16 +60,21 @@ class ProposedNet(nn.Module):
         self.flatten = nn.Flatten()
 
         self.fc1 = nn.Sequential(
-            nn.Linear(4 * 4 * 512, 1024)
+            nn.Linear(4 * 4 * 512, 4 * 4 * 256)
         )
 
         self.fc2 = nn.Sequential(
+            nn.ReLU(inplace=True),
+            nn.Linear(4 * 4 * 256, 2 * 2 * 256)
+        )
+
+        self.fc3 = nn.Sequential(
             nn.ReLU(inplace=True),
             nn.Dropout2d(),
             nn.Linear(1024, 1024)
         )
 
-        self.fc3 = nn.Sequential(
+        self.fc4 = nn.Sequential(
             nn.ReLU(inplace=True),
             nn.Dropout2d(),
             nn.Linear(1024, num_classes)
@@ -93,6 +98,7 @@ class ProposedNet(nn.Module):
         x = self.fc1(x)
         x = self.fc2(x)
         x = self.fc3(x)
+        x = self.fc4(x)
 
         return x
 

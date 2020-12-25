@@ -6,7 +6,7 @@ import torch.optim as optim
 
 from cnn.helper import get_grad_update_params, get_model
 
-from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME, proposed, ensemble
+from cnn import device, ROOT_DIR, SAVE_FILE, MODEL_NAME, ensemblenet
 from cnn.load import load_model
 from cnn.save import save_model
 from cnn.summary import get_summary
@@ -27,10 +27,10 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
 
     num_classes = len(train_loader.dataset.classes)
 
-    if model_name == ensemble.ensemblenet.__name__:
+    if model_name == ensemblenet.ensemblenet.__name__:
         model1 = get_model(model_name=model1_name, is_pre_trained=True, fine_tune=False, num_classes=num_classes)
         model2 = get_model(model_name=model2_name, is_pre_trained=True, fine_tune=False, num_classes=num_classes)
-        model = ensemble.ensemblenet(
+        model = ensemblenet.ensemblenet(
             model1=model1,
             model2=model2
         )
@@ -105,6 +105,9 @@ def weighted_model(model_name, pretrain_file, use_actual_num_classes=False):
         model = models.vgg16(num_classes=4 if use_actual_num_classes else 1000)
 
     elif model_name == models.googlenet.__name__:
+        model = models.googlenet(num_classes=4 if use_actual_num_classes else 1000)
+
+    elif model_name == models.squeezenet1_1.__name__:
         model = models.googlenet(num_classes=4 if use_actual_num_classes else 1000)
 
     else:

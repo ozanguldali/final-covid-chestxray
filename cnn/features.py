@@ -84,3 +84,12 @@ def googlenet_feature_extractor(model):
     )
 
     return feature_extractor
+
+
+def squeezenet_feature_extractor(model):
+    feature_extractor = nn.Sequential(
+        model.features,
+        nn.Flatten()
+    )
+
+    return feature_extractor

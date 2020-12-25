@@ -2,10 +2,11 @@ import sys
 
 from torchvision import models
 
-from cnn import ROOT_DIR, proposed
+from cnn import ROOT_DIR, proposednet, covidnet
 from cnn.dataset import set_dataset, set_loader
 from cnn.features import alexnet_feature_extractor, resnet_feature_extractor, vgg_feature_extractor
-from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, prepare_googlenet, prepare_densenet
+from cnn.util import prepare_alexnet, prepare_resnet, prepare_vgg, prepare_googlenet, prepare_densenet, \
+    prepare_squeezenet
 
 from util.logger_util import log
 
@@ -31,8 +32,11 @@ def set_dataset_and_loaders(dataset_folder, batch_size, img_size, num_workers, n
 
 def get_model(model_name, is_pre_trained, fine_tune, num_classes):
     log.info("Instantiate the model")
-    if model_name == proposed.proposednet.__name__:
-        model = proposed.proposednet()
+    if model_name == covidnet.covidnet.__name__:
+        model = covidnet.covidnet()
+
+    elif model_name == proposednet.proposednet.__name__:
+        model = proposednet.proposednet()
 
     elif model_name == models.alexnet.__name__:
         model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)
@@ -48,6 +52,9 @@ def get_model(model_name, is_pre_trained, fine_tune, num_classes):
 
     elif model_name == models.googlenet.__name__:
         model = prepare_googlenet(is_pre_trained, fine_tune, num_classes)
+
+    elif model_name == models.squeezenet1_1.__name__:
+        model = prepare_squeezenet(is_pre_trained, fine_tune, num_classes)
 
     else:
         log.fatal("model name is not known: " + model_name)

@@ -23,7 +23,6 @@ def prepare_alexnet(is_pre_trained, fine_tune, num_classes):
 
 
 def prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes):
-
     if model_name == models.resnet18.__name__:
         model = models.resnet18(pretrained=is_pre_trained,
                                 num_classes=1000 if is_pre_trained else num_classes)
@@ -52,7 +51,6 @@ def prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes):
 
 
 def prepare_vgg(model_name, is_pre_trained, fine_tune, num_classes):
-
     if model_name == models.vgg16.__name__:
         model = models.vgg16(pretrained=is_pre_trained,
                              num_classes=1000 if is_pre_trained else num_classes)
@@ -77,7 +75,6 @@ def prepare_vgg(model_name, is_pre_trained, fine_tune, num_classes):
 
 
 def prepare_densenet(is_pre_trained, fine_tune, num_classes):
-
     model = models.densenet169(pretrained=is_pre_trained,
                                num_classes=1000 if is_pre_trained else num_classes)
 
@@ -93,7 +90,6 @@ def prepare_densenet(is_pre_trained, fine_tune, num_classes):
 
 
 def prepare_googlenet(is_pre_trained, fine_tune, num_classes):
-
     model = models.googlenet(pretrained=is_pre_trained,
                              num_classes=1000 if is_pre_trained else num_classes)
 
@@ -108,6 +104,23 @@ def prepare_googlenet(is_pre_trained, fine_tune, num_classes):
         set_parameter_requires_grad(frozen)
 
     model.fc = nn.Linear(model.fc.in_features, num_classes)
+
+    return model
+
+
+def prepare_squeezenet(is_pre_trained, fine_tune, num_classes):
+    model = models.squeezenet1_1(pretrained=is_pre_trained,
+                                 num_classes=1000 if is_pre_trained else num_classes)
+
+    if fine_tune:
+        frozen = nn.Sequential(
+            *[model.feeatures[i] for i in range(3)]
+        )
+        set_parameter_requires_grad(frozen)
+
+    model.classifier[1] = nn.Conv2d(model.classifier[1].in_channels,
+                                    num_classes,
+                                    kernel_size=model.classifier[1].kernel_size)
 
     return model
 
@@ -130,6 +143,9 @@ def is_verified(acc):
         verified = True
 
     elif model_name == models.googlenet.__name__ and acc > 80.0:
+        verified = True
+
+    elif model_name == models.squeezenet1_1.__name__ and acc > 80.0:
         verified = True
 
     return verified

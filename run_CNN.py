@@ -50,28 +50,43 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="ensemblenet", is_pre_trained=True, fine_tune=False, batch_size=64, num_epochs=8, update_lr=True, validation_freq=0.125)
+    main(model_name="covidnet", is_pre_trained=False, fine_tune=False, batch_size=64, num_epochs=10, update_lr=False, validation_freq=1.0)
     log.info("Process Finished")
 
-# alexnet - adam - lr=0.001 - update_lr=True - epochs=60 - acc = 82.64
-# alexnet - adamw - lr=0.001 - update_lr=True - epochs=170 - acc = 84.88
-# *alexnet - sgd - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 4th
 
-# *resnet18 - adam - lr=0.001 - update_lr=True - epochs=20 - acc = 90.31 ----- 2nd
-# resnet18 - adamw - lr=0.001 - update_lr=True - epochs=30 - acc = 87.98
-# resnet18 - sgd - lr=0.001 - update_lr=False - epochs=110 - acc = 86.82
+# proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 80.62
+# proposed - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=200 - acc = 84.49
+# proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=60 - acc = 84.88
 
-# resnet50 - adam - lr=0.001 - update_lr=True - epochs=30 - acc = 83.72
-# resnet50 - adamw - lr=0.001 - update_lr=True - epochs=190 - acc = 84.50
-# *resnet50 - sgd - lr=0.001 - update_lr=False - epochs=200 - acc = 86.05
+# alexnet - adam  - lr=0.001 - update_lr=True  - epochs=60 - acc = 82.64
+# alexnet - adamw - lr=0.001 - update_lr=True  - epochs=170 - acc = 84.88
+# alexnet - sgd   - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 4th
 
-# vgg16 - adam - lr=0.001 - update_lr=True - epochs=150 - acc = 86.05
-# vgg16 - adamw - lr=0.001 - update_lr=True - epochs=100 - acc = 87.59
-# *vgg16 - sgd - lr=0.001 - update_lr=False - epochs=130 - acc = 90.70 ------ 1st
+# resnet18 - adam  - lr=0.001 - update_lr=True  - epochs=20 - acc = 90.31 ----- 2nd
+# resnet18 - adamw - lr=0.001 - update_lr=True  - epochs=30 - acc = 87.98
+# resnet18 - sgd   - lr=0.001 - update_lr=False - epochs=110 - acc = 86.82
 
-# googlenet - adam - lr=0.001 - update_lr=True - epochs=190 - acc = 89.92 --- 3rd
-# googlenet - adamw - lr=0.001 - update_lr=True - epochs=200 - acc = 89.14 -- 5th
-# googlenet - sgd - lr=0.001 - update_lr=False - epochs=180 - acc = 87.59
+# resnet50 - adam  - lr=0.001 - update_lr=True  - epochs=30 - acc = 83.72
+# resnet50 - adamw - lr=0.001 - update_lr=True  - epochs=190 - acc = 84.50
+# resnet50 - sgd   - lr=0.001 - update_lr=False - epochs=200 - acc = 86.05
+
+# vgg16 - pretrained = True  - adam  - lr=0.001 - update_lr=True  - epochs=150 - acc = 86.04
+# vgg16 - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 80.62
+# vgg16 - pretrained = True  - adamw - lr=0.001 - update_lr=True  - epochs=100 - acc = 87.59
+# vgg16 - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=140 - acc = 83.33
+# vgg16 - pretrained = True  - sgd   - lr=0.001 - update_lr=False - epochs=130 - acc = 90.70 ------ 1st
+# vgg16 - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=150 - acc = 86.04
+
+# googlenet - adam  - lr=0.001 - update_lr=True  - epochs=190 - acc = 89.92 --- 3rd
+# googlenet - adamw - lr=0.001 - update_lr=True  - epochs=200 - acc = 89.14 -- 5th
+# googlenet - sgd   - lr=0.001 - update_lr=False - epochs=180 - acc = 87.59
+
+# Ör. Test accuracy: 0.8488372093023255
+# 2020-12-25 17:46:07,936 - test.py line+42 - INFO - Confusion Matrix:
+# [[59  6  1 14]
+#  [ 1 79  0  0]
+#  [ 1  0 16  1]
+#  [12  3  0 65]]
 
 # Ör. Test accuracy: 0.8604651162790697
 # 2020-12-23 09:18:03,536 - test.py line+42 - INFO - Confusion Matrix:
