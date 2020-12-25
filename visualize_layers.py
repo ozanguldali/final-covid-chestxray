@@ -1,4 +1,5 @@
 from cnn import device, summary
+from cnn.dataset import inv_normalize_tensor, normalize_tensor
 from cnn.models import proposednet
 from cnn.helper import set_dataset_and_loaders
 
@@ -48,22 +49,22 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize=Fals
             pass
 
         else:
-            # if normalize is not False:
-            #     plt.title("original - " + label)
-            #     plt.imshow(inv_normalize_tensor(image[0]).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #     plt.title("normalized - " + label)
-            #     plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #
-            # else:
-            #     plt.title("original - " + label)
-            #     plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #     plt.title("normalized - " + label)
-            #     plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            # # writer.add_image(tag="initial", img_tensor=image[0])
+            if normalize is not False:
+                plt.title("original - " + label)
+                plt.imshow(inv_normalize_tensor(image[0]).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+                plt.title("normalized - " + label)
+                plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+
+            else:
+                plt.title("original - " + label)
+                plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+                plt.title("normalized - " + label)
+                plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+            # writer.add_image(tag="initial", img_tensor=image[0])
 
             if model_name == proposednet.proposednet.__name__:
                 model = proposednet.proposednet()
