@@ -1,6 +1,5 @@
 import sys
 
-from cnn.dataset import inv_normalize_tensor
 from cnn.helper import set_dataset_and_loaders
 from cnn.model import run_model, weighted_model
 from cnn.test import test_model
@@ -54,9 +53,9 @@ if __name__ == '__main__':
     log.info("Process Finished")
 
 
-# proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 80.62
-# proposed - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=200 - acc = 84.49
-# proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=60 - acc = 84.88
+# proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=120 - acc = 84.11
+# proposed - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=190 - acc = 84.49
+# proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=190 - acc = 87.20
 
 # pronet - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 81.78
 # pronet - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=200 - acc = 84.49
@@ -98,6 +97,13 @@ if __name__ == '__main__':
 #  [ 1 78  0  1]
 #  [ 0  0 17  1]
 #  [ 9  2  0 69]]
+
+# Ör. Test accuracy: 0.872093023255814
+# 2020-12-26 01:01:14,550 - test.py line+42 - INFO - Confusion Matrix:
+# [[68  4  1  7]
+#  [ 1 75  4  0]
+#  [ 0  0 17  1]
+#  [12  3  0 65]]
 
 # Ör. Test accuracy: 0.8875968992248062
 # 2020-12-23 16:32:04,232 - test.py line+42 - INFO - Confusion Matrix:
