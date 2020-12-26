@@ -1,9 +1,5 @@
-import sys
-
-from torchvision import models
-
 from cnn import ROOT_DIR
-from cnn.models import covidnet, proposednet, darkcovidnet
+from cnn.models import covidnet, darkcovidnet, novelnet, proposednet
 from cnn.dataset import set_dataset, set_loader
 from cnn.features import *
 from cnn.util import *
@@ -37,6 +33,9 @@ def get_model(model_name, is_pre_trained, fine_tune, num_classes):
 
     elif model_name == darkcovidnet.darkcovidnet.__name__:
         model = darkcovidnet.darkcovidnet()
+
+    elif model_name == novelnet.novelnet.__name__:
+        model = novelnet.novelnet()
 
     elif model_name == proposednet.proposednet.__name__:
         model = prepare_proposednet(is_pre_trained, fine_tune, num_classes)
