@@ -55,19 +55,13 @@ class ProposedNet(nn.Module):
         self.fc2 = nn.Sequential(
             nn.ReLU(inplace=True),
             nn.Dropout2d(),
-            nn.Linear(8 * 8 * 64, 8 * 8 * 4)
+            nn.Linear(8 * 8 * 64, 8 * 8 * 64)
         )
 
         self.fc3 = nn.Sequential(
             nn.ReLU(inplace=True),
             nn.Dropout2d(),
-            nn.Linear(8 * 8 * 4, 8 * 8 * 4)
-        )
-
-        self.fc4 = nn.Sequential(
-            nn.ReLU(inplace=True),
-            nn.Dropout2d(),
-            nn.Linear(256, num_classes)
+            nn.Linear(4096, num_classes)
         )
 
     def forward(self, x):
@@ -77,7 +71,6 @@ class ProposedNet(nn.Module):
         x = self.fc1(x)
         x = self.fc2(x)
         x = self.fc3(x)
-        x = self.fc4(x)
 
         return x
 
