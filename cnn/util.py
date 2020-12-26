@@ -4,8 +4,21 @@ from torch import nn
 from torchvision import models
 
 from cnn import MODEL_NAME
+from cnn.models import proposednet
 
 from util.logger_util import log
+
+
+def prepare_proposednet(is_pre_trained, fine_tune, num_classes):
+    model = proposednet.proposednet(pretrained=is_pre_trained, num_classes=num_classes)
+
+    if fine_tune:
+        frozen = model.features
+        set_parameter_requires_grad(frozen)
+
+    model.classifier[-1] = nn.Linear(model.classifier[-1].in_features, num_classes)
+
+    return model
 
 
 def prepare_alexnet(is_pre_trained, fine_tune, num_classes):

@@ -39,7 +39,7 @@ def get_model(model_name, is_pre_trained, fine_tune, num_classes):
         model = darkcovidnet.darkcovidnet()
 
     elif model_name == proposednet.proposednet.__name__:
-        model = proposednet.proposednet()
+        model = prepare_proposednet(is_pre_trained, fine_tune, num_classes)
 
     elif model_name == models.alexnet.__name__:
         model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)
