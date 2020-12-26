@@ -16,8 +16,6 @@ def prepare_proposednet(is_pre_trained, fine_tune, num_classes):
         frozen = model.features
         set_parameter_requires_grad(frozen)
 
-    model.classifier[-1] = nn.Linear(model.classifier[-1].in_features, num_classes)
-
     return model
 
 
