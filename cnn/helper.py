@@ -56,8 +56,8 @@ def get_model(model_name, is_pre_trained, fine_tune, num_classes):
     elif model_name == models.googlenet.__name__:
         model = prepare_googlenet(is_pre_trained, fine_tune, num_classes)
 
-    elif model_name == models.squeezenet1_1.__name__:
-        model = prepare_squeezenet(is_pre_trained, fine_tune, num_classes)
+    elif model_name in (models.squeezenet1_0.__name__, models.squeezenet1_1.__name__):
+        model = prepare_squeezenet(model_name, is_pre_trained, fine_tune, num_classes)
 
     else:
         log.fatal("model name is not known: " + model_name)
@@ -83,7 +83,7 @@ def get_feature_extractor(model_name, model):
     elif model_name == models.googlenet.__name__:
         feature_extractor = googlenet_feature_extractor(model)
 
-    elif model_name == models.squeezenet1_1.__name__:
+    elif model_name ==(models.squeezenet1_0.__name__, models.squeezenet1_1.__name__):
         feature_extractor = squeezenet_feature_extractor(model)
 
     else:

@@ -44,24 +44,28 @@ class ProposedNet(nn.Module):
 
         )
 
-        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(8, 8))
+        # self.avgpool = nn.AdaptiveAvgPool2d(output_size=(8, 8))
+        self.avgpool = nn.AdaptiveAvgPool2d(output_size=(num_classes, num_classes))
 
         self.flatten = nn.Flatten()
 
         self.fc1 = nn.Sequential(
-            nn.Linear(8 * 8 * 512, 8 * 8 * 64)
+            # nn.Linear(8 * 8 * 512, 8 * 8 * 64)
+            nn.Linear(num_classes * num_classes * 512, num_classes * num_classes * 64)
         )
 
         self.fc2 = nn.Sequential(
             nn.ReLU(inplace=True),
             nn.Dropout2d(),
-            nn.Linear(8 * 8 * 64, 8 * 8 * 64)
+            # nn.Linear(8 * 8 * 64, 8 * 8 * 64)
+            nn.Linear(num_classes * num_classes * 64, num_classes * num_classes * 64)
         )
 
         self.fc3 = nn.Sequential(
             nn.ReLU(inplace=True),
             nn.Dropout2d(),
-            nn.Linear(4096, num_classes)
+            # nn.Linear(4096, num_classes)
+            nn.Linear(num_classes * num_classes * 64, num_classes)
         )
 
     def forward(self, x):

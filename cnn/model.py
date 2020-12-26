@@ -109,8 +109,11 @@ def weighted_model(model_name, pretrain_file, use_actual_num_classes=False):
     elif model_name == models.googlenet.__name__:
         model = models.googlenet(num_classes=4 if use_actual_num_classes else 1000)
 
+    elif model_name == models.squeezenet1_0.__name__:
+        model = models.squeezenet1_0(num_classes=4 if use_actual_num_classes else 1000)
+
     elif model_name == models.squeezenet1_1.__name__:
-        model = models.googlenet(num_classes=4 if use_actual_num_classes else 1000)
+        model = models.squeezenet1_1(num_classes=4 if use_actual_num_classes else 1000)
 
     else:
         log.fatal("model name is not known: " + model_name)

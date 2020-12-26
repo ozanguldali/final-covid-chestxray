@@ -119,9 +119,16 @@ def prepare_googlenet(is_pre_trained, fine_tune, num_classes):
     return model
 
 
-def prepare_squeezenet(is_pre_trained, fine_tune, num_classes):
-    model = models.squeezenet1_1(pretrained=is_pre_trained,
-                                 num_classes=1000 if is_pre_trained else num_classes)
+def prepare_squeezenet(model_name, is_pre_trained, fine_tune, num_classes):
+    if model_name == models.squeezenet1_0.__name__:
+        model = models.squeezenet1_0(pretrained=is_pre_trained,
+                                     num_classes=1000 if is_pre_trained else num_classes)
+    elif model_name == models.squeezenet1_1.__name__:
+        model = models.squeezenet1_1(pretrained=is_pre_trained,
+                                     num_classes=1000 if is_pre_trained else num_classes)
+    else:
+        log.fatal("model name is not known: " + model_name)
+        sys.exit(1)
 
     if fine_tune:
         frozen = nn.Sequential(

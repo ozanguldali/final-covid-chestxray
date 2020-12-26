@@ -107,11 +107,11 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: obj
                 image = nn.Sequential(model.avgpool, model.flatten)(image)
 
                 image = model.fc1(image)
-                image_reshape = image.reshape(shape=(1, 64, 8, 8))
+                image_reshape = image.reshape(shape=(1, 64, 4, 4))
                 show_layer(image_reshape[0], "fc1 - " + label, 8, 8)
 
                 image = model.fc2(image)
-                image_reshape = image.reshape(shape=(1, 64, 8, 8))
+                image_reshape = image.reshape(shape=(1, 64, 4, 4))
                 show_layer(image_reshape[0], "fc2 - " + label, 8, 8)
 
                 y = model.fc3(image)
