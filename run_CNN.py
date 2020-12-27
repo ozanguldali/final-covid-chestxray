@@ -37,7 +37,7 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 
     else:
         run_model(model_name=model_name, optimizer_name=optimizer_name, is_pre_trained=is_pre_trained,
-                  fine_tune=fine_tune, train_loader=train_loader, test_loader=test_loader,
+                  pretrain_file=pretrain_file, fine_tune=fine_tune, train_loader=train_loader, test_loader=test_loader,
                   num_epochs=num_epochs, save=save, model1_name=model1_name, model2_name=model2_name,
                   update_lr=update_lr, validation_freq=validation_freq, lr=lr,
                   momentum=momentum, weight_decay=weight_decay)
@@ -49,7 +49,7 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="darkcovidnet", batch_size=64, num_epochs=1, update_lr=False, validation_freq=1.0)
+    main(model_name="proposednet", test_without_train=True, pretrain_file="87.20_proposednet_AdamW_out")
     log.info("Process Finished")
 
 
