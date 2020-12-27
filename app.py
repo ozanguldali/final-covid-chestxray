@@ -57,8 +57,8 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
             model = cnn_model.run_model(model_name=cnn_model_name, optimizer_name=optimizer_name, fine_tune=fine_tune,
                                         is_pre_trained=is_pre_trained, train_loader=train_loader, num_epochs=num_epochs,
                                         test_loader=test_loader, validation_freq=validation_freq, lr=lr,
-                                        momentum=momentum, weight_decay=weight_decay,
-                                        update_lr=update_lr, save=False, dataset_folder=dataset_folder)
+                                        momentum=momentum, weight_decay=weight_decay, pretrain_file=pretrain_file,
+                                        update_lr=update_lr, save=False, model1_name="", model2_name="")
 
         log.info("Feature extractor is being created")
         feature_extractor = get_feature_extractor(cnn_model_name, model.eval())
@@ -98,8 +98,8 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(transfer_learning=True, ml_model_name="all", cnn_model_name="googlenet", is_pre_trained=True,
-         dataset_folder="dataset", pretrain_file="89.92_PreTrained_googlenet_Adam_out", img_size=224,
+    main(transfer_learning=True, ml_model_name="all", cnn_model_name="proposednet", is_pre_trained=True,
+         dataset_folder="dataset", pretrain_file="87.21_proposednet_AdamW_out", img_size=224,
          cv=10, seed=17, penalty=None)
 
     log.info("Process Finished")
