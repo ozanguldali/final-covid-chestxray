@@ -52,8 +52,8 @@ if __name__ == '__main__':
     main(model_name="darkcovidnet", batch_size=64, num_epochs=1, update_lr=False, validation_freq=1.0)
     log.info("Process Finished")
 
-# TODO: update excel for proposednet
-# proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=120 - acc = 84.11 # lr=0.0001 - update_lr=True  - epochs=40 - acc = 85.27
+
+# proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 87.21
 # proposed - pretrained = False - adamw - lr=0.0001 - update_lr=True  - epochs=120 - acc = 87.21
 # proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=190 - acc = 87.21
 
