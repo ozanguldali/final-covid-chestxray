@@ -2,7 +2,9 @@ import torch
 from tqdm.notebook import tqdm
 
 from sklearn.metrics import confusion_matrix, classification_report
-from cnn import device, MODEL_NAME
+
+from ae.autoencoder import autoencoder
+from cnn import device, MODEL_NAME, ae
 
 from util.logger_util import log
 from util.tensorboard_util import writer
@@ -23,6 +25,7 @@ def test_model(model, test_loader, iterator=0):
         for e, (images, labels) in enumerate(tqdm(test_loader)):
             # Forward pass
             inputs = images.to(device)
+            inputs = ae(inputs)
             labels = labels.to(device)
             y = model(inputs)
 

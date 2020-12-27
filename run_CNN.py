@@ -49,7 +49,7 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="darkcovidnet", batch_size=64, num_epochs=1, update_lr=False, validation_freq=1.0)
+    main(model_name="resnet18", batch_size=64, num_epochs=1, update_lr=False, validation_freq=1.0)
     log.info("Process Finished")
 
 
@@ -58,25 +58,29 @@ if __name__ == '__main__':
 # proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=190 - acc = 87.20
 
 # darkcovidnet - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=170 - acc = 84.88
-# darkcovidnet - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=40 - acc = 86.05
+# darkcovidnet - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=40 - acc = 86.04
 # darkcovidnet - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=170 - acc = 83.33
 
-# pronet - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 81.78
-# pronet - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=200 - acc = 84.49
-# pronet - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=60 - acc = 84.88
+# aNovelNet - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=20 - acc = 79.84
+# aNovelNet - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=40 - acc = 81.00
+# aNovelNet - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=50 - acc = 82.55
 
-# alexnet - adam  - lr=0.001 - update_lr=True  - epochs=60 - acc = 82.64
-# alexnet - adamw - lr=0.001 - update_lr=True  - epochs=170 - acc = 84.88
-# alexnet - sgd   - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 4th
-# alexnet - sgd   - lr=0.001 - update_lr=False - epochs=30 - acc = 85.27
-
-# resnet18 - adam  - lr=0.001 - update_lr=True  - epochs=20 - acc = 90.31 ----- 2nd
-# resnet18 - adamw - lr=0.001 - update_lr=True  - epochs=30 - acc = 87.98
-# resnet18 - sgd   - lr=0.001 - update_lr=False - epochs=110 - acc = 86.82
+# covidnet - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=100 - acc = 86.04
+# covidnet - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=70 - acc = 84.88
+# covidnet - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=80 - acc = 82.55
 
 # resnet50 - adam  - lr=0.001 - update_lr=True  - epochs=30 - acc = 83.72
 # resnet50 - adamw - lr=0.001 - update_lr=True  - epochs=190 - acc = 84.49
 # resnet50 - sgd   - lr=0.001 - update_lr=False - epochs=200 - acc = 86.04
+
+# alexnet - adam  - lr=0.001 - update_lr=True  - epochs=60 - acc = 82.64
+# alexnet - adamw - lr=0.001 - update_lr=True  - epochs=170 - acc = 84.88
+# alexnet - sgd   - lr=0.001 - update_lr=False - epochs=30 - acc = 85.27
+# alexnet - sgd   - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 4th
+
+# resnet18 - adam  - lr=0.001 - update_lr=True  - epochs=20 - acc = 90.31 ----- 2nd
+# resnet18 - adamw - lr=0.001 - update_lr=True  - epochs=30 - acc = 87.98
+# resnet18 - sgd   - lr=0.001 - update_lr=False - epochs=110 - acc = 86.82
 
 # vgg16 - pretrained = True  - adam  - lr=0.001 - update_lr=True  - epochs=150 - acc = 86.04
 # vgg16 - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 80.62
