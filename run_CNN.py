@@ -1,5 +1,6 @@
 import sys
 
+from cnn import device
 from cnn.helper import set_dataset_and_loaders
 from cnn.model import run_model, weighted_model
 from cnn.test import test_model
@@ -33,6 +34,7 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
     log.info("Calling the model: " + model_name)
     if test_without_train:
         model = weighted_model(model_name, pretrain_file)
+        model = model.to(device)
         test_model(model, test_loader, 0)
 
     else:
