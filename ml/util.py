@@ -25,16 +25,16 @@ def run_svm(X, y, seed, penalty, kf=None, lambdas=None):
                 'classifier__C': lambdas,
                 'classifier__dual': [False],
                 'classifier__random_state': [seed],
-                'classifier__max_iter': [100000]
+                'classifier__max_iter': [1000000]
             }
             bests = get_best_lambda(LinearSVC(), grad_dict, cv, X, y)
             best_lambda = lambdas[bests.best_index_]
 
             log.info("Best lambda value has determined as: " + str(best_lambda))
-            svc_cv = LinearSVC(max_iter=100000, penalty='l1', dual=False, C=best_lambda)  # probability=True
+            svc_cv = LinearSVC(max_iter=1000000, penalty='l1', dual=False, C=best_lambda)  # probability=True
 
         else:
-            svc_cv = SVC(max_iter=100000, probability=True)
+            svc_cv = SVC(max_iter=1000000, probability=True)
 
         result = get_prediction_kf(kf=kf, model=svc_cv, X=X, y=y, tag=tag)
 
@@ -60,15 +60,15 @@ def run_lr(X, y, seed, kf, penalty, lambdas):
                 'classifier__C': lambdas,
                 'classifier__solver': ["liblinear"],
                 'classifier__random_state': [seed],
-                'classifier__max_iter': [100000]
+                'classifier__max_iter': [1000000]
             }
             bests = get_best_lambda(LogisticRegression(), grad_dict, cv, X, y)
             best_lambda = lambdas[bests.best_index_]
             log.info("Best lambda value has determined as: " + str(best_lambda))
-            clf_cv = LogisticRegression(max_iter=100000, solver='liblinear', penalty='l1', C=best_lambda)
+            clf_cv = LogisticRegression(max_iter=1000000, solver='liblinear', penalty='l1', C=best_lambda)
 
         else:
-            clf_cv = LogisticRegression(max_iter=100000, solver='liblinear')
+            clf_cv = LogisticRegression(max_iter=1000000, solver='liblinear')
 
         get_prediction_kf(kf, clf_cv, X, y, tag)
         log.info("")
