@@ -52,10 +52,10 @@ if __name__ == '__main__':
     main(model_name="darkcovidnet", batch_size=64, num_epochs=1, update_lr=False, validation_freq=1.0)
     log.info("Process Finished")
 
-
-# proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=120 - acc = 84.11
-# proposed - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=190 - acc = 84.49
-# proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=190 - acc = 87.20
+# TODO: update excel for proposednet
+# proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=120 - acc = 84.11 # lr=0.0001 - update_lr=True  - epochs=40 - acc = 85.27
+# proposed - pretrained = False - adamw - lr=0.0001 - update_lr=True  - epochs=120 - acc = 87.21
+# proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=190 - acc = 87.21
 
 # darkcovidnet - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=170 - acc = 84.88
 # darkcovidnet - pretrained = False - adamw - lr=0.001 - update_lr=True  - epochs=40 - acc = 86.04
@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
 # alexnet - adam  - lr=0.001 - update_lr=True  - epochs=60 - acc = 82.64
 # alexnet - adamw - lr=0.001 - update_lr=True  - epochs=170 - acc = 84.88
-# alexnet - sgd   - lr=0.001 - update_lr=False - epochs=30 - acc = 85.27
+# alexnet - sgd   - lr=0.01 - update_lr=False - epochs=30 - acc = 85.27
 # alexnet - sgd   - lr=0.001 - update_lr=False - epochs=30 - acc = 89.53 ------ 4th
 
 # squeezenet1_1 - adam  - lr=0.0001 - update_lr=True  - epochs=130 - acc = 83.72
