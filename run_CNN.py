@@ -53,7 +53,7 @@ if __name__ == '__main__':
     log.info("Process Finished")
 
 
-# proposed - pretrained = False - adam  - lr=0.001 - update_lr=True  - epochs=40 - acc = 87.21
+# proposed - pretrained = False - adam  - lr=0.0001 - update_lr=True  - epochs=40 - acc = 87.21
 # proposed - pretrained = False - adamw - lr=0.0001 - update_lr=True  - epochs=120 - acc = 87.21
 # proposed - pretrained = False - sgd   - lr=0.001 - update_lr=False - epochs=190 - acc = 87.21
 
