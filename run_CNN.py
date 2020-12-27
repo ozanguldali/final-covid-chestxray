@@ -51,8 +51,28 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="proposednet", test_without_train=True, pretrain_file="87.20_proposednet_AdamW_out")
+    main(model_name="proposednet", test_without_train=True, pretrain_file="87.21_proposednet_AdamW_out")
     log.info("Process Finished")
+
+
+# 2020-12-27 21:28:19,780 - test.py line+37 - INFO -
+# Test accuracy: 0.872093023255814
+# 2020-12-27 21:28:19,787 - test.py line+42 - INFO - Confusion Matrix:
+# [[61  6  1 12]
+#  [ 1 77  1  1]
+#  [ 0  0 17  1]
+#  [ 6  4  0 70]]
+# 2020-12-27 21:28:19,796 - test.py line+45 - INFO - Classification Report:
+#               precision    recall  f1-score   support
+#
+#            0       0.90      0.76      0.82        80
+#            1       0.89      0.96      0.92        80
+#            2       0.89      0.94      0.92        18
+#            3       0.83      0.88      0.85        80
+#
+#     accuracy                           0.87       258
+#    macro avg       0.88      0.89      0.88       258
+# weighted avg       0.87      0.87      0.87       258
 
 
 # proposed - pretrained = False - adam  - lr=0.0001 - update_lr=True  - epochs=40 - acc = 87.21

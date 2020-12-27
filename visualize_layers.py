@@ -22,7 +22,7 @@ def show_layer(img, title, w, h):
         plt.axis('off')
         c_img = img[c:c + 1, :, :]
         fig.add_subplot(ax)
-        plt.imshow(c_img[0].detach().numpy(), interpolation='nearest')
+        plt.imshow(c_img[0].detach().numpy(), interpolation='gaussian')
 
 
 def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: object = False):
@@ -53,21 +53,21 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: obj
             pass
 
         else:
-            # if normalize is not False:
-            #     plt.title("original - " + label)
-            #     plt.imshow(inv_normalize_tensor(image[0]).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #     plt.title("normalized - " + label)
-            #     plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #
-            # else:
-            #     plt.title("original - " + label)
-            #     plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
-            #     plt.title("normalized - " + label)
-            #     plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
-            #     plt.show()
+            if normalize is not False:
+                plt.title("original - " + label)
+                plt.imshow(inv_normalize_tensor(image[0]).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+                plt.title("normalized - " + label)
+                plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+
+            else:
+                plt.title("original - " + label)
+                plt.imshow(image[0].permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
+                plt.title("normalized - " + label)
+                plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
+                plt.show()
             # writer.add_image(tag="initial", img_tensor=image[0])
 
             if model_name == proposednet.proposednet.__name__:

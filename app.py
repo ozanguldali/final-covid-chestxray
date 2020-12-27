@@ -100,9 +100,47 @@ if __name__ == '__main__':
     log.info("Process Started")
     main(transfer_learning=True, ml_model_name="all", cnn_model_name="proposednet", is_pre_trained=True,
          dataset_folder="dataset", pretrain_file="87.21_proposednet_AdamW_out", img_size=224,
-         cv=10, seed=17, penalty=None)
+         cv=10, seed=17, penalty=True)
 
     log.info("Process Finished")
+
+# 2020-12-28 01:02:16,553 - model.py line+20 - INFO - Running ML model: svm
+# 2020-12-28 01:02:16,554 - util.py line+16 - INFO - Penalty Enabled: False
+# 2020-12-28 01:02:24,996 - helper.py line+48 - INFO - 10-Fold CV Average Test Success Ratio: 97.61956374475004%
+# 2020-12-28 01:02:24,997 - helper.py line+49 - INFO - 10-Fold CV Average AUC Score: 0.9963429088689144
+# 2020-12-28 01:02:24,997 - helper.py line+50 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[30.6  0.3  0.1  1. ]
+#  [ 0.2 31.6  0.1  0.1]
+#  [ 0.   0.  25.7  0.1]
+#  [ 0.8  0.2  0.  31. ]]
+# 2020-12-28 01:02:24,997 - util.py line+42 - INFO -
+# 2020-12-28 01:17:40,682 - util.py line+16 - INFO - Penalty Enabled: True
+# Fitting 10 folds for each of 6 candidates, totalling 60 fits
+# [Parallel(n_jobs=4)]: Using backend LokyBackend with 4 concurrent workers.
+# [Parallel(n_jobs=4)]: Done  42 tasks      | elapsed:   10.9s
+# [Parallel(n_jobs=4)]: Done  60 out of  60 | elapsed:   41.8s finished
+# 2020-12-28 01:18:23,013 - util.py line+33 - INFO - Best lambda value has determined as: 0.05
+# 2020-12-28 01:18:25,944 - helper.py line+48 - INFO - 10-Fold CV Average Test Success Ratio: 97.37298469042136%
+# 2020-12-28 01:18:25,944 - helper.py line+49 - INFO - 10-Fold CV Average AUC Score: 0.9940956548428141
+# 2020-12-28 01:18:25,945 - helper.py line+50 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[30.2  0.6  0.1  1.1]
+#  [ 0.2 31.6  0.1  0.1]
+#  [ 0.   0.  25.7  0.1]
+#  [ 0.7  0.2  0.  31.1]]
+# 2020-12-28 01:02:24,997 - util.py line+42 - INFO -
+# 2020-12-28 01:02:24,998 - model.py line+23 - INFO - Running ML model: lr
+# 2020-12-28 01:02:24,998 - util.py line+51 - INFO - Penalty Enabled: False
+# 2020-12-28 01:02:36,754 - helper.py line+48 - INFO - 10-Fold CV Average Test Success Ratio: 97.20701801923856%
+# 2020-12-28 01:02:36,754 - helper.py line+49 - INFO - 10-Fold CV Average AUC Score: 0.9940363294023189
+# 2020-12-28 01:02:36,754 - helper.py line+50 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[30.3  0.3  0.1  1.3]
+#  [ 0.1 31.6  0.1  0.2]
+#  [ 0.   0.  25.7  0.1]
+#  [ 1.   0.2  0.  30.8]]
+# 2020-12-28 01:02:36,755 - util.py line+74 - INFO -
+# 2020-12-28 01:02:36,819 - app.py line+105 - INFO - Process Finished
+
+############
 
 # /Users/ozanguldali/opt/anaconda3/bin/python /Users/ozanguldali/Documents/master_courses/deep_learning/final_project/final-covid-chestxray/app.py
 # 2020-12-23 20:28:03,481 - __init__.py line+14 - INFO - Device is selected as cpu
