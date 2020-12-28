@@ -1,6 +1,6 @@
 import torch
 
-from ae.autoencoder import autoencoder
+from ae.autoencoder import conv_ae
 from cnn import device, summary
 from cnn.dataset import inv_normalize_tensor, normalize_tensor
 from cnn.models import proposednet
@@ -122,7 +122,7 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: obj
                 print(prediction_label)
 
             if model_name == "ae":
-                image = autoencoder(True, "/Users/ozanguldali/Documents/master_courses/deep_learning/final_project/final-covid-chestxray/ae/saved_aes/AE_Adam_out.pth")(image)
+                image = conv_ae(True, "/Users/ozanguldali/Documents/master_courses/deep_learning/final_project/final-covid-chestxray/ae/saved_aes/AE_Adam_out.pth")(image)
                 show_layer(image[0], "conv1_2 - " + label, 8, 8)
 
             elif model_name == models.vgg16.__name__:

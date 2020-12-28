@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-__all__ = ['ConvolutionalAE', 'autoencoder']
+__all__ = ['ConvolutionalAE', 'conv_ae']
 
 from ae import device
 
@@ -63,7 +63,16 @@ class ConvolutionalAE(nn.Module):
         return x
 
 
-def autoencoder(pretrained=False, pretrained_file=None):
+def ae_2d(input_shape, pretrained=False, pretrained_file=None):
+    ae = AE_2D(input_shape)
+    if pretrained:
+        map_location = None if torch.cuda.is_available() else device
+        ae.load_state_dict(torch.load(pretrained_file, map_location=map_location))
+
+    return ae
+
+
+def conv_ae(pretrained=False, pretrained_file=None):
     ae = ConvolutionalAE()
     if pretrained:
         map_location = None if torch.cuda.is_available() else device

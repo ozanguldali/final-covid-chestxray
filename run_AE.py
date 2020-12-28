@@ -28,5 +28,5 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, num_
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(num_epochs=50, save=True)
+    main(num_epochs=20, save=True)
     log.info("Process Finished")

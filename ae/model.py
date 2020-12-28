@@ -3,7 +3,7 @@ import sys
 from torch import optim, nn
 
 from ae import device
-from ae.autoencoder import autoencoder
+from ae.autoencoder import conv_ae
 from ae.train import train_model
 from ae.save import save_model
 
@@ -16,7 +16,7 @@ from util.logger_util import log
 def run_model(train_loader, num_epochs, optimizer_name, lr, weight_decay, momentum, save=False):
     collect_garbage()
 
-    model = autoencoder()
+    model = conv_ae()
 
     log.info("Setting the model to device")
     model = model.to(device)

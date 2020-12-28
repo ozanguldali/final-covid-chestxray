@@ -1,11 +1,13 @@
 import os
 import sys
 
+import torch
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler, Normalizer
 
 import run_CNN
 import run_ML
+from ae.autoencoder import ae_2d
 from cnn import model as cnn_model, device
 from cnn.dataset import set_loader
 from cnn.features import extract_features
@@ -76,18 +78,25 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
         class_dist = {i: y.count(i) for i in y}
         class0_size = class_dist[0]
         class1_size = class_dist[1]
-        class3_size = class_dist[2]
-        class4_size = class_dist[3]
+        class2_size = class_dist[2]
+        class3_size = class_dist[3]
         log.info("Total class 0 size: " + str(class0_size))
         log.info("Total class 1 size: " + str(class1_size))
-        log.info("Total class 3 size: " + str(class3_size))
-        log.info("Total class 4 size: " + str(class4_size))
+        log.info("Total class 3 size: " + str(class2_size))
+        log.info("Total class 4 size: " + str(class3_size))
+        total_dataset_size = class0_size + class1_size + class2_size + class3_size
 
         if normalize:
             X_cnn = Normalizer().fit_transform(X_cnn)
         X_cnn = StandardScaler().fit_transform(X_cnn)
 
-        log.info("Number of features in X_cnn: " + str(len(X_cnn[0])))
+        num_features = len(X_cnn[0])
+        log.info("Number of features in X_cnn: " + str(num_features))
+
+        for i in range(total_dataset_size):
+            x = X_cnn[i]
+            # breakpoint(x)
+            X_cnn[i] = ae_2d(input_shape=num_features)(torch.from_numpy(x).float()).detach().numpy()
 
         kf = KFold(n_splits=cv, shuffle=True, random_state=seed)
 
@@ -98,9 +107,9 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(transfer_learning=True, ml_model_name="all", cnn_model_name="proposednet", is_pre_trained=True,
-         dataset_folder="dataset", pretrain_file="87.21_proposednet_AdamW_out", img_size=224,
-         cv=10, seed=17, penalty=True)
+    main(transfer_learning=True, ml_model_name="all", cnn_model_name="resnet18", is_pre_trained=True,
+         dataset_folder="dataset", pretrain_file="90.31_PreTrained_resnet18_Adam_out", img_size=224,
+         cv=10, seed=17, penalty=False)
 
     log.info("Process Finished")
 

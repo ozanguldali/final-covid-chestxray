@@ -4,8 +4,8 @@ import torch
 from torch import optim
 from tqdm.notebook import tqdm, trange
 
-from ae.autoencoder import autoencoder
-from cnn import device, MODEL_NAME, ae
+from ae.autoencoder import conv_ae
+from cnn import device, MODEL_NAME
 
 from util.logger_util import log
 from util.tensorboard_util import writer
@@ -40,7 +40,7 @@ def train_model(model, train_loader, test_loader, metric, optimizer, lr, validat
             inputs = images.to(device)
             labels = labels.to(device)
 
-            inputs = ae(inputs)
+            # inputs = ae(inputs)
 
             # Do the forward pass
             outputs = model(inputs)
