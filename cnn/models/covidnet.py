@@ -182,7 +182,7 @@ def covidnet(pretrained=False, pretrained_file=None, **kwargs):
         :param pretrained_file: pth file name
     """
     if pretrained and pretrained_file is None:
-        assert "Pretrained Model Weights File must be specified when pretrained model is wished to be used."
+        raise RuntimeError("Pretrained Model Weights File must be specified when pretrained model is wished to be used.")
     model = CovidNet()
 
     if pretrained:

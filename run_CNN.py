@@ -1,5 +1,6 @@
 import sys
 
+from cnn import device
 from cnn.helper import set_dataset_and_loaders
 from cnn.model import run_model, weighted_model
 from cnn.test import test_model
@@ -33,11 +34,12 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
     log.info("Calling the model: " + model_name)
     if test_without_train:
         model = weighted_model(model_name, pretrain_file)
+        model = model.to(device)
         test_model(model, test_loader, 0)
 
     else:
         run_model(model_name=model_name, optimizer_name=optimizer_name, is_pre_trained=is_pre_trained,
-                  fine_tune=fine_tune, train_loader=train_loader, test_loader=test_loader,
+                  pretrain_file=pretrain_file, fine_tune=fine_tune, train_loader=train_loader, test_loader=test_loader,
                   num_epochs=num_epochs, save=save, model1_name=model1_name, model2_name=model2_name,
                   update_lr=update_lr, validation_freq=validation_freq, lr=lr,
                   momentum=momentum, weight_decay=weight_decay)
@@ -49,8 +51,28 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="resnet18", batch_size=64, num_epochs=1, update_lr=False, validation_freq=1.0)
+    main(model_name="proposednet", test_without_train=True, pretrain_file="87.21_proposednet_AdamW_out")
     log.info("Process Finished")
+
+
+# 2020-12-27 21:28:19,780 - test.py line+37 - INFO -
+# Test accuracy: 0.872093023255814
+# 2020-12-27 21:28:19,787 - test.py line+42 - INFO - Confusion Matrix:
+# [[61  6  1 12]
+#  [ 1 77  1  1]
+#  [ 0  0 17  1]
+#  [ 6  4  0 70]]
+# 2020-12-27 21:28:19,796 - test.py line+45 - INFO - Classification Report:
+#               precision    recall  f1-score   support
+#
+#            0       0.90      0.76      0.82        80
+#            1       0.89      0.96      0.92        80
+#            2       0.89      0.94      0.92        18
+#            3       0.83      0.88      0.85        80
+#
+#     accuracy                           0.87       258
+#    macro avg       0.88      0.89      0.88       258
+# weighted avg       0.87      0.87      0.87       258
 
 
 # proposed - pretrained = False - adam  - lr=0.0001 - update_lr=True  - epochs=40 - acc = 87.21

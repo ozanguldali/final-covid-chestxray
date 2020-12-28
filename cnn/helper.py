@@ -26,7 +26,7 @@ def set_dataset_and_loaders(dataset_folder, batch_size, img_size, num_workers, n
     return train_data, train_loader, test_data, test_loader
 
 
-def get_model(model_name, is_pre_trained, fine_tune, num_classes):
+def get_model(model_name, is_pre_trained, fine_tune, num_classes, pretrain_file=None):
     log.info("Instantiate the model")
     if model_name == covidnet.covidnet.__name__:
         model = covidnet.covidnet()
@@ -38,7 +38,7 @@ def get_model(model_name, is_pre_trained, fine_tune, num_classes):
         model = novelnet.novelnet()
 
     elif model_name == proposednet.proposednet.__name__:
-        model = prepare_proposednet(is_pre_trained, fine_tune, num_classes)
+        model = prepare_proposednet(is_pre_trained, fine_tune, num_classes, pretrain_file)
 
     elif model_name == models.alexnet.__name__:
         model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)

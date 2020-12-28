@@ -9,8 +9,8 @@ from cnn.models import proposednet
 from util.logger_util import log
 
 
-def prepare_proposednet(is_pre_trained, fine_tune, num_classes):
-    model = proposednet.proposednet(pretrained=is_pre_trained, num_classes=num_classes)
+def prepare_proposednet(is_pre_trained, fine_tune, num_classes, pretrain_file=None):
+    model = proposednet.proposednet(pretrained=is_pre_trained, pretrained_file=pretrain_file, num_classes=num_classes)
 
     if fine_tune:
         frozen = model.features

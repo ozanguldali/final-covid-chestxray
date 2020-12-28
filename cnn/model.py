@@ -20,7 +20,7 @@ from util.garbage_util import collect_garbage
 from util.logger_util import log
 
 
-def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs, train_loader, test_loader,
+def run_model(model_name, optimizer_name, is_pre_trained, pretrain_file, fine_tune, num_epochs, train_loader, test_loader,
               validation_freq, lr, momentum, weight_decay, model1_name, model2_name, update_lr=True, save=False):
     collect_garbage()
 
@@ -37,7 +37,8 @@ def run_model(model_name, optimizer_name, is_pre_trained, fine_tune, num_epochs,
             in_features=4096 + 196
         )
     else:
-        model = get_model(model_name=model_name, is_pre_trained=is_pre_trained, fine_tune=fine_tune, num_classes=num_classes)
+        model = get_model(model_name=model_name, is_pre_trained=is_pre_trained, fine_tune=fine_tune,
+                          num_classes=num_classes, pretrain_file=pretrain_file)
 
     log.info("Setting the model to device")
     model = model.to(device)
@@ -92,36 +93,39 @@ def weighted_model(model_name, pretrain_file, use_actual_num_classes=False):
     out_file = ROOT_DIR + "/saved_models/" + pretrain_file + ".pth"
 
     if model_name == proposednet.proposednet.__name__:
-        model = proposednet.proposednet()
-
-    elif model_name == models.alexnet.__name__:
-        model = models.alexnet(num_classes=4 if use_actual_num_classes else 1000)
-
-    elif model_name == models.resnet18.__name__:
-        model = models.resnet18(num_classes=4 if use_actual_num_classes else 1000)
-
-    elif model_name == models.resnet50.__name__:
-        model = models.resnet50(num_classes=4 if use_actual_num_classes else 1000)
-
-    elif model_name == models.vgg16.__name__:
-        model = models.vgg16(num_classes=4 if use_actual_num_classes else 1000)
-
-    elif model_name == models.googlenet.__name__:
-        model = models.googlenet(num_classes=4 if use_actual_num_classes else 1000)
-
-    elif model_name == models.squeezenet1_0.__name__:
-        model = models.squeezenet1_0(num_classes=4 if use_actual_num_classes else 1000)
-
-    elif model_name == models.squeezenet1_1.__name__:
-        model = models.squeezenet1_1(num_classes=4 if use_actual_num_classes else 1000)
+        model = proposednet.proposednet(pretrained=True, pretrained_file=out_file)
+        return model
 
     else:
-        log.fatal("model name is not known: " + model_name)
-        sys.exit(1)
 
-    try:
-        log.info("Using class size as: {}".format(4 if use_actual_num_classes else 1000))
-        return load_model(model, out_file)
-    except RuntimeError as re:
-        log.error(re)
-        return weighted_model(model_name, pretrain_file, True)
+        if model_name == models.alexnet.__name__:
+            model = models.alexnet(num_classes=4 if use_actual_num_classes else 1000)
+
+        elif model_name == models.resnet18.__name__:
+            model = models.resnet18(num_classes=4 if use_actual_num_classes else 1000)
+
+        elif model_name == models.resnet50.__name__:
+            model = models.resnet50(num_classes=4 if use_actual_num_classes else 1000)
+
+        elif model_name == models.vgg16.__name__:
+            model = models.vgg16(num_classes=4 if use_actual_num_classes else 1000)
+
+        elif model_name == models.googlenet.__name__:
+            model = models.googlenet(num_classes=4 if use_actual_num_classes else 1000)
+
+        elif model_name == models.squeezenet1_0.__name__:
+            model = models.squeezenet1_0(num_classes=4 if use_actual_num_classes else 1000)
+
+        elif model_name == models.squeezenet1_1.__name__:
+            model = models.squeezenet1_1(num_classes=4 if use_actual_num_classes else 1000)
+
+        else:
+            log.fatal("model name is not known: " + model_name)
+            sys.exit(1)
+
+        try:
+            log.info("Using class size as: {}".format(4 if use_actual_num_classes else 1000))
+            return load_model(model, out_file)
+        except RuntimeError as re:
+            log.error(re)
+            return weighted_model(model_name, pretrain_file, True)
