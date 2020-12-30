@@ -51,7 +51,7 @@ def main(save=False, dataset_folder="dataset", batch_size=64, img_size=224, test
 if __name__ == '__main__':
     save = False
     log.info("Process Started")
-    main(model_name="proposednet", test_without_train=True, pretrain_file="87.21_proposednet_AdamW_out")
+    main(model_name="proposednet", num_epochs=50, lr=0.0001)
     log.info("Process Finished")
 
 
