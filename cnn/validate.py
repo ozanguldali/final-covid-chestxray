@@ -2,7 +2,7 @@ import torch
 from tqdm.notebook import tqdm
 
 from ae.autoencoder import conv_ae
-from cnn import device, ROOT_DIR, MODEL_NAME
+from cnn import device, ROOT_DIR, MODEL_NAME, ae
 from cnn.model import SAVE_FILE
 from cnn.save import save_model
 from cnn.util import is_verified
@@ -26,7 +26,7 @@ def validate_model(model, test_loader, metric, iterator, save):
         for e, (images, labels) in enumerate(tqdm(test_loader)):
             # Forward pass
             inputs = images.to(device)
-            inputs = conv_ae(inputs)
+            inputs = ae(inputs)
             labels = labels.to(device)
             outputs = model(inputs)
 

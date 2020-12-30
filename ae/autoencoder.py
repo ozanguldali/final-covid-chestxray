@@ -44,13 +44,13 @@ class ConvolutionalAE(nn.Module):
         self.sigmoid = nn.Sigmoid()
 
         # Encoder
-        self.conv1 = nn.Conv2d(3, 16, 3, padding=1)
-        self.conv2 = nn.Conv2d(16, 4, 3, padding=1)
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(16, 4, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(2, 2)
 
         # Decoder
-        self.t_conv1 = nn.ConvTranspose2d(4, 16, 2, stride=2)
-        self.t_conv2 = nn.ConvTranspose2d(16, 3, 2, stride=2)
+        self.t_conv1 = nn.ConvTranspose2d(4, 16, kernel_size=2, stride=2)
+        self.t_conv2 = nn.ConvTranspose2d(16, 3, kernel_size=2, stride=2)
 
     def forward(self, x):
         x = self.relu(self.conv1(x))
