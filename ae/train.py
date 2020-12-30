@@ -24,7 +24,7 @@ def train_model(model, train_loader, metric, optimizer, num_epochs=25):
             outputs = model(inputs)
 
             loss = metric(outputs, inputs)
-            loss_history.append(loss.item() * inputs.size(0))
+            loss_history.append(loss.item())  # * inputs.size(0)
 
             # Calculate gradients and step
             loss.backward()

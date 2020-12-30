@@ -26,7 +26,7 @@ def validate_model(model, test_loader, metric, iterator, save):
         for e, (images, labels) in enumerate(tqdm(test_loader)):
             # Forward pass
             inputs = images.to(device)
-            # inputs = ae(inputs)
+            inputs = conv_ae(inputs)
             labels = labels.to(device)
             outputs = model(inputs)
 

@@ -25,7 +25,7 @@ def test_model(model, test_loader, iterator=0):
         for e, (images, labels) in enumerate(tqdm(test_loader)):
             # Forward pass
             inputs = images.to(device)
-            # inputs = ae(inputs)
+            inputs = conv_ae(inputs)
             labels = labels.to(device)
             y = model(inputs)
 

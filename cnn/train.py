@@ -40,7 +40,7 @@ def train_model(model, train_loader, test_loader, metric, optimizer, lr, validat
             inputs = images.to(device)
             labels = labels.to(device)
 
-            # inputs = ae(inputs)
+            inputs = conv_ae(inputs)
 
             # Do the forward pass
             outputs = model(inputs)
