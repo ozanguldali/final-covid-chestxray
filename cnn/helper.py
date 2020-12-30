@@ -43,14 +43,8 @@ def get_model(model_name, is_pre_trained, fine_tune, num_classes, pretrain_file=
     elif model_name == models.alexnet.__name__:
         model = prepare_alexnet(is_pre_trained, fine_tune, num_classes)
 
-    elif model_name in (models.resnet18.__name__, models.resnet50.__name__, models.resnet152.__name__):
+    elif model_name == models.resnet50.__name__:
         model = prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes)
-
-    elif model_name in (models.vgg16.__name__, models.vgg19.__name__):
-        model = prepare_vgg(model_name, is_pre_trained, fine_tune, num_classes)
-
-    elif model_name == models.densenet169.__name__:
-        model = prepare_densenet(is_pre_trained, fine_tune, num_classes)
 
     elif model_name == models.googlenet.__name__:
         model = prepare_googlenet(is_pre_trained, fine_tune, num_classes)
@@ -73,16 +67,13 @@ def get_feature_extractor(model_name, model):
     elif model_name == models.alexnet.__name__:
         feature_extractor = alexnet_feature_extractor(model)
 
-    elif model_name in (models.resnet18.__name__, models.resnet50.__name__):
+    elif model_name == models.resnet50.__name__:
         feature_extractor = resnet_feature_extractor(model)
-
-    elif model_name == models.vgg16.__name__:
-        feature_extractor = vgg_feature_extractor(model)
 
     elif model_name == models.googlenet.__name__:
         feature_extractor = googlenet_feature_extractor(model)
 
-    elif model_name ==(models.squeezenet1_0.__name__, models.squeezenet1_1.__name__):
+    elif model_name in (models.squeezenet1_0.__name__, models.squeezenet1_1.__name__):
         feature_extractor = squeezenet_feature_extractor(model)
 
     else:

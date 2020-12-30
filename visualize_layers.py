@@ -120,46 +120,6 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: obj
                 prediction_label = list(show.keys())[prediction]
                 print(prediction_label)
 
-            elif model_name == models.resnet18.__name__:
-                model = models.resnet18()
-
-                image = nn.Sequential(model.conv1, model.bn1, model.relu, model.maxpool)(image)
-                show_layer(image[0], "conv - " + label, 8, 8)
-                # conv1_fig.canvas.draw()
-                # arr = np.array(conv1_fig.canvas.renderer.buffer_rgba())
-                # writer.add_image(tag="conv1", img_tensor=arr)
-
-                image = model.layer1(image)
-                show_layer(image[0], "layer1 - " + label, 8, 8)
-
-                image = model.layer2(image)
-                show_layer(image[0], "layer2 - " + label, 8, 16)
-
-                image = model.layer3(image)
-                show_layer(image[0], "layer3 - " + label, 16, 16)
-
-                image = model.layer4(image)
-                show_layer(image[0], "layer4 - " + label, 16, 32)
-
-            elif model_name == models.vgg16.__name__:
-                model = models.vgg16()
-                summary.get_summary(model, train_loader=test_loader)
-
-                image = nn.Sequential(*[model.features[i] for i in range(5)])(image)
-                show_layer(image[0], "block1 - " + label, 8, 8)
-
-                image = nn.Sequential(*[model.features[i] for i in range(5, 10)])(image)
-                show_layer(image[0], "block2 - " + label, 12, 12)
-
-                image = nn.Sequential(*[model.features[i] for i in range(10, 17)])(image)
-                show_layer(image[0], "block3 - " + label, 16, 16)
-
-                image = nn.Sequential(*[model.features[i] for i in range(17, 24)])(image)
-                show_layer(image[0], "block4 - " + label, 24, 24)
-
-                image = nn.Sequential(*[model.features[i] for i in range(24, 31)])(image)
-                show_layer(image[0], "block5 - " + label, 24, 24)
-
             elif model_name == models.alexnet.__name__:
                 model = models.alexnet()
 

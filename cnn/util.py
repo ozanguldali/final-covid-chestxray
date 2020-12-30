@@ -34,15 +34,9 @@ def prepare_alexnet(is_pre_trained, fine_tune, num_classes):
 
 
 def prepare_resnet(model_name, is_pre_trained, fine_tune, num_classes):
-    if model_name == models.resnet18.__name__:
-        model = models.resnet18(pretrained=is_pre_trained,
-                                num_classes=1000 if is_pre_trained else num_classes)
-    elif model_name == models.resnet50.__name__:
+    if model_name == models.resnet50.__name__:
         model = models.resnet50(pretrained=is_pre_trained,
                                 num_classes=1000 if is_pre_trained else num_classes)
-    elif model_name == models.resnet152.__name__:
-        model = models.resnet152(pretrained=is_pre_trained,
-                                 num_classes=1000 if is_pre_trained else num_classes)
     else:
         log.fatal("model name is not known: " + model_name)
         sys.exit(1)
