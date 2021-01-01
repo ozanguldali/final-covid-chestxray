@@ -14,7 +14,7 @@ def set_loader(dataset, batch_size=1, shuffle=False, num_workers=1):
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
 
 
-def set_transform(resize=112, crop=112, normalize=None, additional=None):
+def set_transform(resize=224, crop=224, normalize=None, additional=None):
     if normalize is None or normalize is True:
         normalize = [[0.485, 0.456, 0.406], [0.229, 0.224, 0.225]]
 

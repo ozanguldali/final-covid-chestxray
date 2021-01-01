@@ -72,7 +72,7 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: obj
 
             if model_name == proposednet.proposednet.__name__:
                 model = proposednet.proposednet()
-                # summary.get_summary(model, test_loader)
+                summary.get_summary(model, test_loader)
 
                 image = nn.Sequential(*[model.features[i] for i in range(2)])(image)
                 # show_layer(image[0], "conv1_1 - " + label, 8, 8)
@@ -115,10 +115,30 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: obj
                 show_layer(image_reshape[0], "fc2 - " + label, 8, 8)
 
                 y = model.fc3(image)
-                print(y)
+                print(y.detach().numpy()[0])
                 prediction = torch.argmax(y, dim=1).item()
                 prediction_label = list(show.keys())[prediction]
                 print(prediction_label)
+                print()
+                softmax = nn.Softmax(dim=1)(y)
+                softmax_plot = softmax.detach().numpy()[0]
+                print(softmax_plot)
+                prediction = torch.argmax(softmax, dim=1).item()
+                prediction_label = list(show.keys())[prediction]
+                print(prediction_label)
+                plt.show()
+
+                plt.bar(list(show.keys()), (100*softmax_plot), width=0.1)
+                plt.xticks(list(show.keys()))
+                plt.yticks(100*softmax_plot)
+                plt.xlabel('Label')
+                plt.ylabel('Probability')
+
+                # [-0.13113384  0.2518244  -0.03567153 -0.41911373]
+                # Normal
+                #
+                # [0.23166591 0.3397651  0.25487125 0.17369768]
+                # Normal
 
             elif model_name == models.alexnet.__name__:
                 model = models.alexnet()

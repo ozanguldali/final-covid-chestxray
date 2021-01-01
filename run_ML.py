@@ -7,7 +7,7 @@ from util.garbage_util import collect_garbage
 from util.logger_util import log
 
 
-def main(model_name, dataset_folder, seed, cv=5, img_size=112, normalize=True, penalty: object = False, lambdas=None):
+def main(model_name, seed, dataset_folder="dataset", cv=10, img_size=224, normalize=True, penalty: object = False, lambdas=None):
 
     if (penalty is None or penalty) and lambdas is None:
         lambdas = [0.01, 0.05, 0.1, 0.5, 1.0, 5.0]
@@ -25,5 +25,5 @@ def main(model_name, dataset_folder, seed, cv=5, img_size=112, normalize=True, p
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(model_name='svm', cv=5, dataset_folder="dataset", img_size=112, normalize=True, seed=23)
+    main(model_name='all', cv=10, dataset_folder="dataset", seed=17, penalty=None)
     log.info("Process Finished")
