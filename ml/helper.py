@@ -6,6 +6,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import roc_auc_score
+from tqdm.notebook import tqdm
 
 from ml.dataset import read_dataset, divide_dataset
 
@@ -22,7 +23,7 @@ def get_prediction_kf(kf, model, X, y, tag=None):
     ratios = []
     conf_matrices = []
     roc_list = []
-    for e, (train, test) in enumerate(kf.split(X, y)):
+    for e, (train, test) in enumerate(tqdm(kf.split(X, y))):
         if not isinstance(X, np.ndarray):
             X = np.array(X)
 

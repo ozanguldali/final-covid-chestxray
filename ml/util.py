@@ -34,7 +34,8 @@ def run_svm(X, y, seed, penalty, kf=None, lambdas=None):
             svc_cv = LinearSVC(max_iter=1000000, penalty='l1', dual=False, C=best_lambda)  # probability=True
 
         else:
-            svc_cv = SVC(max_iter=1000000, probability=True)
+            print("here")
+            svc_cv = SVC(max_iter=1000, probability=True)
 
         result = get_prediction_kf(kf=kf, model=svc_cv, X=X, y=y, tag=tag)
 

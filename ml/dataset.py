@@ -1,6 +1,7 @@
 import os
 from math import ceil
 
+from tqdm.notebook import tqdm
 import numpy as np
 from skimage.io import imread
 from skimage.transform import resize
@@ -43,15 +44,19 @@ def read_dataset(dataset_folder, resize_value=None, to_crop=False):
             X.append(features.tolist())
             y.append(label)
 
+    label_map = {
+        "/train/Bacterial/": 0,
+        "/train/Normal/": 1,
+        "/train/Viral-COVID19/": 2,
+        "/train/Viral-Other/": 3,
+        "/test/Bacterial/": 0,
+        "/test/Normal/": 1,
+        "/test/Viral-COVID19/": 2,
+        "/test/Viral-Other/": 3
+        }
     if len(X) == 0 or len(y) == 0:
-        iterate_over_directory(dataset_dir + dataset_folder + "/train/Bacterial/", 0)
-        iterate_over_directory(dataset_dir + dataset_folder + "/train/Normal/", 1)
-        iterate_over_directory(dataset_dir + dataset_folder + "/train/Viral-COVID19/", 2)
-        iterate_over_directory(dataset_dir + dataset_folder + "/train/Viral-Other/", 3)
-        iterate_over_directory(dataset_dir + dataset_folder + "/test/Bacterial/", 0)
-        iterate_over_directory(dataset_dir + dataset_folder + "/test/Normal/", 1)
-        iterate_over_directory(dataset_dir + dataset_folder + "/test/Viral-COVID19/", 2)
-        iterate_over_directory(dataset_dir + dataset_folder + "/test/Viral-Other/", 3)
+        for label in tqdm(label_map):
+            iterate_over_directory(dataset_dir + dataset_folder + label, label_map[label])
 
     return X, y
 
