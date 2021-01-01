@@ -27,3 +27,12 @@ if __name__ == '__main__':
     log.info("Process Started")
     main(model_name='all', cv=10, dataset_folder="dataset", seed=17, penalty=None)
     log.info("Process Finished")
+
+# SVM
+# 2021-01-01 19:34:50,792 - helper.py line+51 - INFO - 10-Fold CV Average Test Success Ratio: 84.64909903807072%
+# 2021-01-01 19:34:50,795 - helper.py line+52 - INFO - 10-Fold CV Average AUC Score: 0.9678050463943955
+# 2021-01-01 19:34:50,798 - helper.py line+53 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[25.5  1.4  0.5  4.6]
+#  [ 0.3 30.   0.2  1.5]
+#  [ 0.2  0.1 24.9  0.6]
+#  [ 6.8  1.8  0.7 22.7]]
