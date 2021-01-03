@@ -4,6 +4,8 @@ from sklearn.svm import LinearSVC, SVC
 from ml.helper import get_prediction_kf, get_best_lambda
 from ml.save import save_model
 
+from sklearn.tree import DecisionTreeClassifier
+
 from util.logger_util import log
 
 
@@ -72,3 +74,9 @@ def run_lr(X, y, seed, kf, penalty, lambdas):
 
         get_prediction_kf(kf, clf_cv, X, y, tag)
         log.info("")
+
+
+def run_dt(X, y, kf):
+    dt_clf = DecisionTreeClassifier()
+    get_prediction_kf(kf, dt_clf, X, y, "tag")
+    log.info("")

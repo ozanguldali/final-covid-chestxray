@@ -1,6 +1,8 @@
 import os
 import sys
 
+import numpy as np
+
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler, Normalizer
 
@@ -17,7 +19,7 @@ from util.logger_util import log
 ROOT_DIR = str(os.path.dirname(os.path.abspath(__file__)))
 
 
-def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="dataset", penalty: object = False,
+def main(transfer_learning, load_numpy=False, method="", ml_model_name="", cv=10, dataset_folder="dataset", penalty: object = False,
          pretrain_file=None, batch_size=8, img_size=112, num_workers=4, cnn_model_name="", optimizer_name='Adam',
          validation_freq=0.1, lr=0.001, momentum=0.9, weight_decay=1e-4,
          update_lr=True, is_pre_trained=False, fine_tune=False, num_epochs=16, normalize=True, lambdas=None, seed=1):
@@ -47,32 +49,38 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
                                                                                    num_workers=num_workers,
                                                                                    normalize=normalize)
 
-        if is_pre_trained and pretrain_file is not None and \
-                cnn_model_name in pretrain_file.lower():
-            log.info("Getting PreTrained CNN model: " + cnn_model_name + " from the Weights of " + pretrain_file)
-            model = cnn_model.weighted_model(cnn_model_name, pretrain_file)
+        if load_numpy:
+            X_cnn = np.load("X_cnn.npy")
+            y = list(np.load("y.npy"))
 
         else:
-            log.info("Running CNN model: " + cnn_model_name)
-            model = cnn_model.run_model(model_name=cnn_model_name, optimizer_name=optimizer_name, fine_tune=fine_tune,
-                                        is_pre_trained=is_pre_trained, train_loader=train_loader, num_epochs=num_epochs,
-                                        test_loader=test_loader, validation_freq=validation_freq, lr=lr,
-                                        momentum=momentum, weight_decay=weight_decay, pretrain_file=pretrain_file,
-                                        update_lr=update_lr, save=False, model1_name="", model2_name="")
+            if is_pre_trained and pretrain_file is not None and \
+                    cnn_model_name in pretrain_file.lower():
+                log.info("Getting PreTrained CNN model: " + cnn_model_name + " from the Weights of " + pretrain_file)
+                model = cnn_model.weighted_model(cnn_model_name, pretrain_file)
 
-        log.info("Feature extractor is being created")
-        feature_extractor = get_feature_extractor(cnn_model_name, model.eval())
-        log.info("Feature extractor is setting to device: " + str(device))
-        feature_extractor = feature_extractor.to(device)
+            else:
+                log.info("Running CNN model: " + cnn_model_name)
+                model = cnn_model.run_model(model_name=cnn_model_name, optimizer_name=optimizer_name, fine_tune=fine_tune,
+                                            is_pre_trained=is_pre_trained, train_loader=train_loader, num_epochs=num_epochs,
+                                            test_loader=test_loader, validation_freq=validation_freq, lr=lr,
+                                            momentum=momentum, weight_decay=weight_decay, pretrain_file=pretrain_file,
+                                            update_lr=update_lr, save=False, model1_name="", model2_name="")
 
-        log.info("Merging CNN train&test datasets")
-        dataset = train_data + test_data
+            log.info("Feature extractor is being created")
+            feature_extractor = get_feature_extractor(cnn_model_name, model.eval())
+            log.info("Feature extractor is setting to device: " + str(device))
+            feature_extractor = feature_extractor.to(device)
 
-        log.info("Constructing loader for merged dataset")
-        data_loader = set_loader(dataset=dataset, batch_size=int(len(dataset) / 5), shuffle=False,
-                                 num_workers=num_workers)
-        log.info("Extracting features as X_cnn array and labels as general y vector")
-        X_cnn, y = extract_features(data_loader, feature_extractor)
+            log.info("Merging CNN train&test datasets")
+            dataset = train_data + test_data
+
+            log.info("Constructing loader for merged dataset")
+            data_loader = set_loader(dataset=dataset, batch_size=int(len(dataset) / 5), shuffle=False,
+                                     num_workers=num_workers)
+            log.info("Extracting features as X_cnn array and labels as general y vector")
+            X_cnn, y = extract_features(data_loader, feature_extractor)
+
         class_dist = {i: y.count(i) for i in y}
         class0_size = class_dist[0]
         class1_size = class_dist[1]
@@ -98,21 +106,20 @@ def main(transfer_learning, method="", ml_model_name="", cv=10, dataset_folder="
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(transfer_learning=True, ml_model_name="all", cnn_model_name="proposednet", is_pre_trained=True,
-         dataset_folder="dataset", pretrain_file="87.21_proposednet_AdamW_out", img_size=224,
-         cv=10, seed=17, penalty=True)
+    main(transfer_learning=True, load_numpy=True, ml_model_name="dt", seed=51, penalty=False)
 
     log.info("Process Finished")
 
+# seed 4
 # 2020-12-28 01:02:16,553 - model.py line+20 - INFO - Running ML model: svm
 # 2020-12-28 01:02:16,554 - util.py line+16 - INFO - Penalty Enabled: False
-# 2020-12-28 01:02:24,996 - helper.py line+48 - INFO - 10-Fold CV Average Test Success Ratio: 97.61956374475004%
-# 2020-12-28 01:02:24,997 - helper.py line+49 - INFO - 10-Fold CV Average AUC Score: 0.9963429088689144
-# 2020-12-28 01:02:24,997 - helper.py line+50 - INFO - 10-Fold CV Average Confusion Matrix:
+# 2021-01-04 01:46:32,358 - helper.py line+51 - INFO - 10-Fold CV Average Test Success Ratio: 97.70356320281805%
+# 2021-01-04 01:46:32,358 - helper.py line+52 - INFO - 10-Fold CV Average AUC Score: 0.9963024640797584
+# 2021-01-04 01:46:32,359 - helper.py line+53 - INFO - 10-Fold CV Average Confusion Matrix:
 # [[30.6  0.3  0.1  1. ]
 #  [ 0.2 31.6  0.1  0.1]
 #  [ 0.   0.  25.7  0.1]
-#  [ 0.8  0.2  0.  31. ]]
+#  [ 0.7  0.2  0.  31.1]]
 # 2020-12-28 01:02:24,997 - util.py line+42 - INFO -
 # 2020-12-28 01:17:40,682 - util.py line+16 - INFO - Penalty Enabled: True
 # Fitting 10 folds for each of 6 candidates, totalling 60 fits
