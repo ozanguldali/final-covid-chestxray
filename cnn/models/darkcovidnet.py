@@ -5,6 +5,10 @@ from cnn import device
 
 __all__ = ['DarkCovidNet', 'darkcovidnet']
 
+# https://doi.org/10.1016/j.compbiomed.2020.103792
+# https://www.researchgate.net/publication/340935440_Automated_Detection_of_COVID-19_Cases_Using_Deep_Neural_Networks_with_X-ray_Images
+# https://github.com/muhammedtalo/COVID-19
+
 
 class DarkCovidNet(nn.Module):
     def __init__(self, num_classes=4):

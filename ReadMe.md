@@ -5,6 +5,8 @@
 
 ## A PROPOSED CNN ARCHITECTURE TO DIAGNOSE PNEUMONIA DIAGNOSIS AND ITS CAUSES FROM CHEST X-RAY CT 
 
+* ###### dataset may be a must for some run-configurations
+    - Link to dataset: https://github.com/ozanguldali/final-covid-chestxray/blob/master/dataset
 * ###### dataset_constructor.py was used to create the dataset from kaggle source
 * ###### image_operations.py was used to augment the COVID-19 labeled data
 * ###### visualize_layers was used to visualize the layers of proposed cnn model
@@ -33,7 +35,7 @@
 - seed: 4
 
 _Example of Transfer Leaning:_
-1.
+1. (Dataset folder is required: https://github.com/ozanguldali/final-covid-chestxray/blob/master/dataset)
 - Unless exists, 87.21_proposednet_Adam_out.pth file must be downloaded and inserted into "cnn/saved_models" directory.
 - Link to file:
   - https://github.com/ozanguldali/final-covid-chestxray/blob/master/cnn/saved_models/87.21_proposednet_Adam_out.pth
@@ -41,7 +43,7 @@ _Example of Transfer Leaning:_
 `app.main(transfer_learning=True, ml_model_name="svm", cnn_model_name="proposednet", is_pre_trained=True,
          dataset_folder="dataset", pretrain_file="87.21_proposednet_Adam_out", seed=4)`
   
-2.
+2. (Dataset folder is not needed)
 - Unless exists, X_cnn.npy and y.npy files must be downloaded and inserted into project root directory.
 - Link to files: 
   - https://github.com/ozanguldali/final-covid-chestxray/blob/master/X_cnn.npy

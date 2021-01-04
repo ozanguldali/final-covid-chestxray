@@ -6,6 +6,22 @@ from cnn import device
 import torch.nn.functional as F
 
 __all__ = ['CovidNet', 'covidnet']
+'''
+@Article{Wang2020,
+author={Wang, Linda and Lin, Zhong Qiu and Wong, Alexander},
+title={COVID-Net: a tailored deep convolutional neural network design for detection of COVID-19 cases from chest X-ray images},
+journal={Scientific Reports},
+year={2020},
+month={Nov},
+day={11},
+volume={10},
+number={1},
+pages={19549},
+issn={2045-2322},
+doi={10.1038/s41598-020-76550-z},
+url={https://doi.org/10.1038/s41598-020-76550-z}
+}
+'''
 
 
 class Flatten(nn.Module):
@@ -16,7 +32,6 @@ class Flatten(nn.Module):
 class PEXP(nn.Module):
     def __init__(self, n_input, n_out):
         super(PEXP, self).__init__()
-
 
         '''
         • First-stage Projection: 1×1 convolutions for projecting input features to a lower dimension,
@@ -182,7 +197,8 @@ def covidnet(pretrained=False, pretrained_file=None, **kwargs):
         :param pretrained_file: pth file name
     """
     if pretrained and pretrained_file is None:
-        raise RuntimeError("Pretrained Model Weights File must be specified when pretrained model is wished to be used.")
+        raise RuntimeError(
+            "Pretrained Model Weights File must be specified when pretrained model is wished to be used.")
     model = CovidNet()
 
     if pretrained:
@@ -190,4 +206,3 @@ def covidnet(pretrained=False, pretrained_file=None, **kwargs):
         model.load_state_dict(torch.load(pretrained_file, map_location=map_location))
 
     return model
-

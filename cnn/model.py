@@ -101,20 +101,8 @@ def weighted_model(model_name, pretrain_file, use_actual_num_classes=False):
         if model_name == models.alexnet.__name__:
             model = models.alexnet(num_classes=4 if use_actual_num_classes else 1000)
 
-        elif model_name == models.resnet18.__name__:
-            model = models.resnet18(num_classes=4 if use_actual_num_classes else 1000)
-
         elif model_name == models.resnet50.__name__:
             model = models.resnet50(num_classes=4 if use_actual_num_classes else 1000)
-
-        elif model_name == models.vgg16.__name__:
-            model = models.vgg16(num_classes=4 if use_actual_num_classes else 1000)
-
-        elif model_name == models.googlenet.__name__:
-            model = models.googlenet(num_classes=4 if use_actual_num_classes else 1000)
-
-        elif model_name == models.squeezenet1_0.__name__:
-            model = models.squeezenet1_0(num_classes=4 if use_actual_num_classes else 1000)
 
         elif model_name == models.squeezenet1_1.__name__:
             model = models.squeezenet1_1(num_classes=4 if use_actual_num_classes else 1000)

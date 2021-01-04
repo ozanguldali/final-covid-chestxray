@@ -6,7 +6,6 @@ from cnn.models import proposednet
 from cnn.helper import set_dataset_and_loaders
 
 from torch import nn as nn
-import torchvision.models as models
 
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -68,7 +67,6 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: obj
                 plt.title("normalized - " + label)
                 plt.imshow(normalize_tensor(image[0], norm_value=None).permute(1, 2, 0).detach().numpy(), interpolation='nearest')
                 plt.show()
-            # writer.add_image(tag="initial", img_tensor=image[0])
 
             if model_name == proposednet.proposednet.__name__:
                 model = proposednet.proposednet()
@@ -139,32 +137,6 @@ def visualize(model_name, dataset_folder="dataset", img_size=112, normalize: obj
                 #
                 # [0.23166591 0.3397651  0.25487125 0.17369768]
                 # Normal
-
-            elif model_name == models.alexnet.__name__:
-                model = models.alexnet()
-
-                # image = nn.Sequential(*[model.features[i] for i in range(3)])(image)
-                image = nn.Sequential(*[model.features[i] for i in range(1)])(image)
-                show_layer(image[0], "conv1 - " + label, 8, 8)
-
-                # image = nn.Sequential(*[model.features[i] for i in range(3, 6)])(image)
-                image = nn.Sequential(*[model.features[i] for i in range(1, 4)])(image)
-                show_layer(image[0], "conv2 - " + label, 12, 16)
-
-                # image = nn.Sequential(*[model.features[i] for i in range(6, 8)])(image)
-                image = nn.Sequential(*[model.features[i] for i in range(4, 7)])(image)
-                show_layer(image[0], "conv3 - " + label, 16, 24)
-
-                # image = nn.Sequential(*[model.features[i] for i in range(8, 10)])(image)
-                image = nn.Sequential(*[model.features[i] for i in range(7, 9)])(image)
-                show_layer(image[0], "conv4 - " + label, 16, 16)
-
-                # image = nn.Sequential(*[model.features[i] for i in range(10, 13)])(image)
-                image = nn.Sequential(*[model.features[i] for i in range(9, 11)])(image)
-                show_layer(image[0], "conv5 - " + label, 16, 16)
-
-                image = nn.Sequential(*[model.features[i] for i in range(11, 13)])(image)
-                show_layer(image[0], "conv6 - " + label, 16, 16)
 
             plt.show()
             show[label] = False

@@ -5,6 +5,8 @@ from cnn import device
 
 __all__ = ['ProposedNet', 'proposednet']
 
+# Ozan Güldali & Cihat Kırankaya
+
 
 class ProposedNet(nn.Module):
     def __init__(self, num_classes=4):

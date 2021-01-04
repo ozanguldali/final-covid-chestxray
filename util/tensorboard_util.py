@@ -1,6 +1,6 @@
 import os
 
-from util.file_util import prepare_directory
+# from util.file_util import prepare_directory
 from torch.utils.tensorboard import SummaryWriter
 
 root_dir = str(os.path.dirname(os.path.abspath(__file__))).split("util")[0]

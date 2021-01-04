@@ -5,6 +5,8 @@ from cnn import device
 
 __all__ = ['NovelNet', 'novelnet']
 
+# https://www.sciencedirect.com/science/article/pii/S1568494620305184
+
 
 class NovelNet(nn.Module):
     def __init__(self, num_classes=4):
