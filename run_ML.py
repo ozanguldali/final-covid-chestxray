@@ -7,7 +7,7 @@ from util.garbage_util import collect_garbage
 from util.logger_util import log
 
 
-def main(seed, model_name="svm", dataset_folder="dataset", cv=10, img_size=224, normalize=True, penalty: object = False, lambdas=None):
+def main(seed, model_name="svm", dataset_folder="dataset", cv=10, img_size=224, normalize=True, lambdas=None):
 
     if lambdas is None:
         lambdas = [0.01, 0.05, 0.1, 0.5, 1.0, 5.0]
@@ -18,7 +18,7 @@ def main(seed, model_name="svm", dataset_folder="dataset", cv=10, img_size=224, 
     X, y = get_dataset(dataset_folder, img_size, normalize, divide=False)
 
     log.info("Calling the model: " + model_name)
-    run_model(model_name=model_name, X=X, y=y, seed=seed, kf=kf, penalty=penalty, lambdas=lambdas)
+    run_model(model_name=model_name, X=X, y=y, seed=seed, kf=kf, lambdas=lambdas)
 
     collect_garbage()
 

@@ -19,7 +19,7 @@ from util.logger_util import log
 ROOT_DIR = str(os.path.dirname(os.path.abspath(__file__)))
 
 
-def main(transfer_learning, load_numpy=False, method="", ml_model_name="svm", cv=10, dataset_folder="dataset", penalty: object = False,
+def main(transfer_learning, load_numpy=False, method="", ml_model_name="svm", cv=10, dataset_folder="dataset",
          pretrain_file=None, batch_size=32, img_size=224, num_workers=4, cnn_model_name="", optimizer_name='Adam',
          validation_freq=0.1, lr=0.001, momentum=0.9, weight_decay=1e-4,
          update_lr=True, is_pre_trained=False, fine_tune=False, num_epochs=16, normalize=True, lambdas=None, seed=4):
@@ -30,7 +30,7 @@ def main(transfer_learning, load_numpy=False, method="", ml_model_name="svm", cv
     if not transfer_learning:
         if method.lower() == "ml":
             run_ML.main(model_name=ml_model_name, dataset_folder=dataset_folder, seed=seed, cv=cv,
-                        img_size=img_size, normalize=normalize,  penalty=penalty, lambdas=lambdas)
+                        img_size=img_size, normalize=normalize, lambdas=lambdas)
         elif method.lower() == "cnn":
             run_CNN.main(save=False, dataset_folder=dataset_folder, batch_size=batch_size, test_without_train=False,
                          img_size=img_size, num_workers=num_workers, num_epochs=num_epochs, model_name=cnn_model_name,
@@ -99,14 +99,14 @@ def main(transfer_learning, load_numpy=False, method="", ml_model_name="svm", cv
 
         kf = KFold(n_splits=cv, shuffle=True, random_state=seed)
 
-        ml_model.run_model(model_name=ml_model_name, X=X_cnn, y=y, seed=seed, kf=kf, penalty=penalty, lambdas=lambdas)
+        ml_model.run_model(model_name=ml_model_name, X=X_cnn, y=y, seed=seed, kf=kf, lambdas=lambdas)
 
     collect_garbage()
 
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(transfer_learning=True, load_numpy=True, seed=4, penalty=False)
+    main(transfer_learning=True, load_numpy=True, seed=4)
 
     log.info("Process Finished")
 

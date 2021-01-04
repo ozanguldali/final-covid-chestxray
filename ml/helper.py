@@ -14,10 +14,6 @@ from util.logger_util import log
 from util.tensorboard_util import writer
 
 
-def get_prediction(model, X_ts, y_ts):
-    log.info("Test Success Ratio: " + str(100 * model.score(X_ts, y_ts)) + '%')
-
-
 def get_prediction_kf(kf, model, X, y, tag=None):
     cv = kf.n_splits
     ratios = []

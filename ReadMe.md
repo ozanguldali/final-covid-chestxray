@@ -16,7 +16,6 @@
 - ml_model_name: "svm"
 - cv: any positive integer. Default is 10.
 - dataset_folder: "dataset"
-- penalty: True, False or None. Default is False. None to run both choice.
 - pretrain_file: pth file name without "pth" extension
 - batch_size: any positive integer
 - img_size: 224
