@@ -1,4 +1,0 @@
-; *.pth filter=lfs diff=lfs merge=lfs -text
-; 90.7_PreTrained_vgg16_SGD_out.pth filter=lfs diff=lfs merge=lfs -text
-;  filter=lfs diff=lfs merge=lfs -text
-;  filter=lfs diff=lfs merge=lfs -text

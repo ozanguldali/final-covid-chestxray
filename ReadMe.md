@@ -5,12 +5,15 @@
 
 ## A PROPOSED CNN ARCHITECTURE TO DIAGNOSE PNEUMONIA DIAGNOSIS AND ITS CAUSES FROM CHEST X-RAY CT 
 
-To run only ML, only CNN or both as transfer learning, app.py file can be run with corresponding function parameters.
+* ###### dataset_constructor.py was used to create the dataset from kaggle source
+* ###### image_operations.py was used to augment the COVID-19 labeled data
+* ###### visualize_layers was used to visualize the layers of proposed cnn model
+* ###### To run only ML, only CNN or both as transfer learning, app.py file can be run with corresponding function parameters.
 
 - transfer_learning: True if wanted to transfer deep features from CNN model
 - load_numpy: True if wanted to use previously computed features. Default is False.
 - method: "ML" or "CNN". Required if transfer_learning is False
-- ml_model_name: "svm". Required if method is not CNN
+- ml_model_name: "svm"
 - cv: any positive integer. Default is 10.
 - dataset_folder: "dataset"
 - penalty: True, False or None. Default is False. None to run both choice.
@@ -45,7 +48,7 @@ _Example of Transfer Leaning:_
   - https://github.com/ozanguldali/final-covid-chestxray/blob/master/X_cnn.npy
   - https://github.com/ozanguldali/final-covid-chestxray/blob/master/y.npy
     
-`app.main(transfer_learning=True, load_numpy=True, ml_model_name="svm", seed=4)`
+`app.main(transfer_learning=True, load_numpy=True, seed=4)`
 
 
   
