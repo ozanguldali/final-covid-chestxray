@@ -24,7 +24,7 @@ def main(transfer_learning, load_numpy=False, method="", ml_model_name="", cv=10
          validation_freq=0.1, lr=0.001, momentum=0.9, weight_decay=1e-4,
          update_lr=True, is_pre_trained=False, fine_tune=False, num_epochs=16, normalize=True, lambdas=None, seed=1):
 
-    if (penalty is None or penalty) and lambdas is None:
+    if lambdas is None:
         lambdas = [0.01, 0.05, 0.1, 0.5, 1.0, 5.0]
 
     if not transfer_learning:
@@ -106,20 +106,20 @@ def main(transfer_learning, load_numpy=False, method="", ml_model_name="", cv=10
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(transfer_learning=True, load_numpy=True, ml_model_name="dt", seed=51, penalty=False)
+    main(transfer_learning=True, load_numpy=True, ml_model_name="svm", seed=4, penalty=False)
 
     log.info("Process Finished")
 
-# seed 4
+# C: 5.0 - kernel: rbf - gamma: scale - decision_function_shape: ovo - seed: 4
 # 2020-12-28 01:02:16,553 - model.py line+20 - INFO - Running ML model: svm
 # 2020-12-28 01:02:16,554 - util.py line+16 - INFO - Penalty Enabled: False
-# 2021-01-04 01:46:32,358 - helper.py line+51 - INFO - 10-Fold CV Average Test Success Ratio: 97.70356320281805%
-# 2021-01-04 01:46:32,358 - helper.py line+52 - INFO - 10-Fold CV Average AUC Score: 0.9963024640797584
-# 2021-01-04 01:46:32,359 - helper.py line+53 - INFO - 10-Fold CV Average Confusion Matrix:
-# [[30.6  0.3  0.1  1. ]
-#  [ 0.2 31.6  0.1  0.1]
+# 2021-01-04 20:13:27,292 - helper.py line+51 - INFO - 10-Fold CV Average Test Success Ratio: 97.94946484216231%
+# 2021-01-04 20:13:27,292 - helper.py line+52 - INFO - 10-Fold CV Average AUC Score: 0.9959950265035653
+# 2021-01-04 20:13:27,293 - helper.py line+53 - INFO - 10-Fold CV Average Confusion Matrix:
+# [[30.9  0.1  0.1  0.9]
+#  [ 0.1 31.7  0.1  0.1]
 #  [ 0.   0.  25.7  0.1]
-#  [ 0.7  0.2  0.  31.1]]
+#  [ 0.8  0.2  0.  31. ]]
 # 2020-12-28 01:02:24,997 - util.py line+42 - INFO -
 # 2020-12-28 01:17:40,682 - util.py line+16 - INFO - Penalty Enabled: True
 # Fitting 10 folds for each of 6 candidates, totalling 60 fits

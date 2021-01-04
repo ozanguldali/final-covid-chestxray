@@ -73,13 +73,14 @@ def get_dataset(dataset_folder, img_size, normalize, divide=False):
     return X, y
 
 
-def get_best_lambda(classifier, grad_dict, cv, X, y):
+def get_best(classifier, grad_dict, cv, X, y):
     pipe = Pipeline([('classifier', classifier)])
 
     param_grid = [grad_dict]
 
     clf = GridSearchCV(pipe, param_grid=param_grid, cv=cv, verbose=1, n_jobs=4, pre_dispatch=2*4)
 
-    best_lambda = clf.fit(X, y)
+    fit = clf.fit(X, y)
 
-    return best_lambda
+    return fit.best_params_['classifier']
+
