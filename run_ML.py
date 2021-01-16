@@ -25,7 +25,7 @@ def main(seed, model_name="svm", dataset_folder="dataset", cv=10, img_size=224, 
 
 if __name__ == '__main__':
     log.info("Process Started")
-    main(model_name='dt', cv=10, dataset_folder="dataset", seed=17, penalty=None)
+    main(model_name='dt', cv=10, dataset_folder="dataset", seed=17)
     log.info("Process Finished")
 
 # SVM

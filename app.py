@@ -112,7 +112,6 @@ if __name__ == '__main__':
 
 # C: 5.0 - kernel: rbf - gamma: scale - decision_function_shape: ovo - seed: 4
 # 2020-12-28 01:02:16,553 - model.py line+20 - INFO - Running ML model: svm
-# 2020-12-28 01:02:16,554 - util.py line+16 - INFO - Penalty Enabled: False
 # 2021-01-04 20:13:27,292 - helper.py line+51 - INFO - 10-Fold CV Average Test Success Ratio: 97.94946484216231%
 # 2021-01-04 20:13:27,292 - helper.py line+52 - INFO - 10-Fold CV Average AUC Score: 0.9959950265035653
 # 2021-01-04 20:13:27,293 - helper.py line+53 - INFO - 10-Fold CV Average Confusion Matrix:
