@@ -3,7 +3,7 @@ from torchvision.transforms import transforms
 from torchvision import datasets, transforms
 
 
-def set_dataset(folder, size=112, normalize=None):
+def set_dataset(folder, size=224, normalize=None):
     transform = set_transform(resize=size, crop=size, normalize=normalize)
     dataset = datasets.ImageFolder(folder, transform=transform)
 
