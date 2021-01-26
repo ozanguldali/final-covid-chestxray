@@ -3,7 +3,7 @@
 
 ## Final Project
 
-## A NOVEL CNN ARCHITECTURE TO DIAGNOSE PNEUMONIA DIAGNOSIS AND ITS CAUSES FROM CHEST X-RAY
+## A NOVEL CNN ARCHITECTURE TO DIAGNOSE PNEUMONIA AND ITS CAUSES FROM CHEST X-RAY
 
 * ###### dataset may be a must for some run-configurations
     - Link to dataset: https://github.com/ozanguldali/final-covid-chestxray/blob/master/dataset
